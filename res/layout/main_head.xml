@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_bar"
+    style="@style/title_bar_style" >
+
+    <FrameLayout
+        android:id="@+id/top_head_container"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@drawable/layout_selecter"
+        android:clickable="true"
+        android:paddingLeft="8.0dip"
+        android:paddingRight="8.0dip" >
+
+        <ImageView
+            android:id="@+id/head"
+            android:layout_width="@dimen/head_size"
+            android:layout_height="@dimen/head_size"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/publish_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@+id/search"
+        android:background="@drawable/layout_selecter"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8.0dip"
+            android:src="@drawable/publish" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/layout_selecter"
+        android:clickable="true" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:padding="8.0dip"
+            android:src="@drawable/right_search" />
+    </LinearLayout>
+
+</RelativeLayout>

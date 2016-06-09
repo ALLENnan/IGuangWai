@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#18B4ED" >
+
+        <TextView
+            android:id="@+id/msy_back"
+            style="@style/backStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/mymsy" />
+    </RelativeLayout>
+
+    <com.quanta.i_guangwai.view.SlideCutListView
+        android:id="@+id/slideCutListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:divider="@drawable/reader_item_divider" >
+    </com.quanta.i_guangwai.view.SlideCutListView>
+
+</RelativeLayout>

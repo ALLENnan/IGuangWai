@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:context=".MyMsyActivity" >
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="81dp"
+        android:layout_weight="0.41" >
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ITEM"
+            android:textColor="@color/title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv1_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="50dp"
+            android:text="TextView"
+            android:textColor="@color/content"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:background="@android:color/white"
+        android:padding="15dp" >
+
+        <TextView
+            android:id="@+id/tv_functions"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_del_bg"
+            android:gravity="center"
+            android:text="@string/del"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/tv_coating"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

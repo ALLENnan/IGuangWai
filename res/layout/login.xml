@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dip"
+        android:src="@drawable/logo3" />
+
+    <RelativeLayout
+        android:id="@+id/login_div"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:background="@drawable/background_login_div"
+        android:padding="15dip" >
+
+        <TextView
+            android:id="@+id/login_user_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/account"
+            android:textColor="#F0FFFF" />
+
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:layout_below="@id/login_user_input"
+            android:background="@drawable/input_box"
+            android:drawableLeft="@drawable/login_user_icon"
+            android:hint="@string/your_account"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="16sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/login_password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_username"
+            android:layout_marginTop="3dp"
+            android:text="@string/password"
+            android:textColor="#F0FFFF" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:layout_below="@id/login_password_input"
+            android:background="@drawable/input_box"
+            android:drawableLeft="@drawable/login_pwd_icon"
+            android:hint="@string/your_password"
+            android:inputType="textPassword"
+            android:password="true"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/edit_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/bt_login" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_tourlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/tourmodle"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+</RelativeLayout>
