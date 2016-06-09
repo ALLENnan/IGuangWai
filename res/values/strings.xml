@@ -1,8 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IGuangWai</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">i广外</string>
+    <string name="logo">logo</string>
+    <string name="login">login</string>
+    <string name="left_drawer_item_mydata">我的资料</string>
+    <string name="left_drawer_item_message">我的私信</string>
+    <string name="left_drawer_item_myactivity">我的动态</string>
+    <string name="left_drawer_item_logoff">注销登录</string>
+    <string name="area_study">学习专区</string>
+    <string name="area_life">生活专区</string>
+    <string name="area_activity">活动专区</string>
+    <string name="area_new">新生专区</string>
+    <string name="subarea_exam">考试区</string>
+    <string name="subarea_share">分享区</string>
+    <string name="subarea_answer">解答区</string>
+    <string name="subarea_dormitory">宿舍区</string>
+    <string name="subarea_food">美食区</string>
+    <string name="subarea_travel">出游区</string>
+    <string name="subarea_country">国家赛区</string>
+    <string name="subarea_school">校级区</string>
+    <string name="subarea_academy">学院区</string>
+    <string name="subarea_corporation">社团区</string>
+    <string name="subarea_guide">导航区</string>
+    <string name="subarea_solution">解答区</string>
+    <string name="your_password">密码</string>
+    <string name="your_account">学号登录</string>
+    <string name="account">Account</string>
+    <string name="password">Password</string>
+    <string name="publish_str">分享你的东西...</string>
+    <string name="del">删除</string>
+
+    <string-array name="skill">
+        <item>毕业季</item>
+        <item>韩娟美</item>
+        <item>最美师姐</item>
+        <item>Quanta</item>
+        <item>复习资料</item>
+        <item>暑假</item>
+        <item>题库</item>
+        <item>生活态度</item>
+        <item>跑内环</item>
+        <item>广外订水网</item>
+    </string-array>
+
+    <string name="tour">游客</string>
+    <string name="move">移动和缩放</string>
+    <string name="sure">确 定</string>
+    <string name="back">返回</string>
+    <string name="content">帖子正文</string>
+    <string name="acy_str">我的动态</string>
+    <string name="sign">个性签名</string>
+    <string name="mysendArticle">我发起的帖子</string>
+    <string name="myresArticle">我回复的帖子</string>
+    <string name="data">个人中心</string>
+    <string name="text">一万年太久，只想好好珍惜当下。生活就像海洋，珍惜生活.。</string>
+    <string name="mydata">基本资料</string>
+    <string name="myname">张嘉鑫</string>
+    <string name="academy_value">思科信息学院</string>
+    <string name="nameStr">昵称</string>
+    <string name="academy_str">学院</string>
+    <string name="gender_str">性别</string>
+    <string name="major_str">专业</string>
+    <string name="noacy">暂无动态</string>
+    <string name="mymsy">我的私信</string>
+    <string name="title">标题</string>
+    <string name="publish">发布帖子</string>
+    <string name="searchtitle">标题搜索</string>
+    <string name="searchContent">搜索感兴趣的内容</string>
+    <string name="takephoto">拍照</string>
+    <string name="photoviews">从相册选择</string>
+    <string name="exit">取 消</string>
+    <string name="tourmodle">游客模式</string>
+    <string name="send">发送</string>
+    <string name="save">保存</string>
+    <string name="comment">发表你的评论...</string>
+    <string name="changdata">修改资料</string>
+    <string name="initsign">这个人很懒,什么都没有留下...</string>
 
 </resources>
