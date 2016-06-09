@@ -9,7 +9,7 @@
 
     <!-- 自定义view -->
 
-    <com.quanta.i_guangwai.view.ExpandableView
+    <com.allen.iguangwai.widget.ExpandableView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -316,7 +316,7 @@
                 android:text="@string/subarea_solution" >
             </Button>
         </LinearLayout>
-    </com.quanta.i_guangwai.view.ExpandableView>
+    </com.allen.iguangwai.widget.ExpandableView>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/four_vp"
