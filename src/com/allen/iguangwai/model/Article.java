@@ -1,10 +1,10 @@
 package com.allen.iguangwai.model;
 
 import java.io.Serializable;
-import com.allen.iguangwai.async.QuantaBaseModel;
+import com.allen.iguangwai.async.BaseModel;
 
 /** 贴子实体类 */
-public class Article extends QuantaBaseModel implements Serializable {
+public class Article extends BaseModel implements Serializable {
 	/** 贴子id */
 	private String id;
 	/** 贴子类型 */

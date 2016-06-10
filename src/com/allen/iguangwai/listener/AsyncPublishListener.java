@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
-import com.allen.iguangwai.async.QuantaBaseMessage;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.BaseMessage;
 
 public class AsyncPublishListener implements OnQuantaAsyncListener {
 
@@ -27,7 +27,7 @@ public class AsyncPublishListener implements OnQuantaAsyncListener {
 	}
 
 	@Override
-	public void onComplete(int taskId, QuantaBaseMessage baseMessage) {
+	public void onComplete(int taskId, BaseMessage baseMessage) {
 
 
 		if (baseMessage.getStatus().equals("1")) {

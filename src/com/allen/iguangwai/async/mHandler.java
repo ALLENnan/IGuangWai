@@ -1,6 +1,6 @@
 package com.allen.iguangwai.async;
 
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
 
 import android.os.Handler;
 import android.os.Message;
@@ -10,11 +10,11 @@ import android.os.Message;
  * @author wangjiewen
  *
  */
-public class QuantaHandler extends Handler{
+public class mHandler extends Handler{
 
 	OnQuantaAsyncListener quantaAsyncListener = null;
 	
-	public QuantaHandler(){
+	public mHandler(){
 		
 	}
 	
@@ -28,17 +28,17 @@ public class QuantaHandler extends Handler{
 		int taskId;
 		String result;
 		switch (msg.what) {
-		case QuantaTaskThread.TASK_COMPLETE:
+		case TaskThread.TASK_COMPLETE:
 			taskId = msg.getData().getInt("taskId");
 			result = msg.getData().getString("data");
 			if (result != null && !result.equals("")) {
-				this.quantaAsyncListener.onComplete(taskId, QuantaAppUtil.getMessage(result));
+				this.quantaAsyncListener.onComplete(taskId, AppUtil.getMessage(result));
 			}else{
 				this.quantaAsyncListener.onComplete(taskId);
 			}
 			break;
 			
-		case QuantaTaskThread.NETWORK_ERROR:
+		case TaskThread.NETWORK_ERROR:
 			taskId = msg.getData().getInt("taskId");
 			result = msg.getData().getString("data");
 			this.quantaAsyncListener.onNetWorkError(taskId, result);

@@ -15,17 +15,17 @@ import org.json.JSONObject;
  * @author wangjiewen
  *
  */
-public class QuantaBaseMessage {
+public class BaseMessage {
 
 	private String data;
 	private String info;
 	private String status;
-	private Map<String, QuantaBaseModel> resultMap;
-	private Map<String, ArrayList<? extends QuantaBaseModel>> resultList;
+	private Map<String, BaseModel> resultMap;
+	private Map<String, ArrayList<? extends BaseModel>> resultList;
 
-	public QuantaBaseMessage() {
-		this.resultMap = new HashMap<String, QuantaBaseModel>();
-		this.resultList = new HashMap<String, ArrayList<? extends QuantaBaseModel>>();
+	public BaseMessage() {
+		this.resultMap = new HashMap<String, BaseModel>();
+		this.resultList = new HashMap<String, ArrayList<? extends BaseModel>>();
 	}
 
 	@Override
@@ -75,11 +75,11 @@ public class QuantaBaseMessage {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<? extends QuantaBaseModel> getDataList(String modelName) throws Exception {
-		ArrayList<? extends QuantaBaseModel> modelList = this.resultList
+	public ArrayList<? extends BaseModel> getDataList(String modelName) throws Exception {
+		ArrayList<? extends BaseModel> modelList = this.resultList
 				.get(modelName);
 		if (modelList == null || modelList.size() == 0) {
-			return new ArrayList<QuantaBaseModel>();
+			return new ArrayList<BaseModel>();
 		}
 		return modelList;
 	}
@@ -100,7 +100,7 @@ public class QuantaBaseMessage {
 				// initialize
 				String jsonKey = it.next();
 				String modelName = getModelName(jsonKey);
-				String modelClassName = QuantaConfig.MODEL_PACKAGE + "." + modelName;
+				String modelClassName = Config.MODEL_PACKAGE + "." + modelName;
 				JSONArray modelJsonArray = jsonObject.optJSONArray(jsonKey);
 				// JSONObject
 				if (modelJsonArray == null) {
@@ -113,7 +113,7 @@ public class QuantaBaseMessage {
 				
 				// JSONArray
 				} else {
-					ArrayList<QuantaBaseModel> modelList = new ArrayList<QuantaBaseModel>();
+					ArrayList<BaseModel> modelList = new ArrayList<BaseModel>();
 					for (int i = 0; i < modelJsonArray.length(); i++) {
 						JSONObject modelJsonObject = modelJsonArray.optJSONObject(i);
 						modelList.add(json2model(modelClassName, modelJsonObject));
@@ -132,10 +132,10 @@ public class QuantaBaseMessage {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	private QuantaBaseModel json2model(String modelClassName, JSONObject modelJsonObject) throws Exception {
+	private BaseModel json2model(String modelClassName, JSONObject modelJsonObject) throws Exception {
 		// auto-load model class
-		QuantaBaseModel modelObj = (QuantaBaseModel) Class.forName(modelClassName).newInstance();
-		Class<? extends QuantaBaseModel> modelClass = modelObj.getClass();
+		BaseModel modelObj = (BaseModel) Class.forName(modelClassName).newInstance();
+		Class<? extends BaseModel> modelClass = modelObj.getClass();
 		// auto-setting model fields
 		Iterator<String> it = modelJsonObject.keys();
 		while (it.hasNext()) {
@@ -158,7 +158,7 @@ public class QuantaBaseMessage {
 		if (strArr.length > 0) {
 			str = strArr[0];
 		}
-		return QuantaAppUtil.ucfirst(str);
+		return AppUtil.ucfirst(str);
 	}
 
 }

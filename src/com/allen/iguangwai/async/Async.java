@@ -12,15 +12,15 @@ import android.content.Context;
  * @author wangjiewen
  *
  */
-public class QuantaAsync{
+public class Async{
 
 	private static ExecutorService taskPool = Executors.newCachedThreadPool();
-	private QuantaHandler quantaHandler = null;
+	private mHandler quantaHandler = null;
 	private Context context;
 	
-	public QuantaAsync(Context context){
+	public Async(Context context){
 		this.context = context;
-		this.quantaHandler = new QuantaHandler();
+		this.quantaHandler = new mHandler();
 	}
 	
 	/**
@@ -33,13 +33,13 @@ public class QuantaAsync{
 	
 	/**
 	 * execute http post task
-	 * @param taskId 标示任务的id, 在回调的时�?�可以判断是哪个任务完成�?
+	 * @param taskId 标示任务的id, 在回调的时�?�可以判断是哪个任务完成�?
 	 * @param taskUrl
-	 * @param taskArgs post的参数，键�?�对的形�?
+	 * @param taskArgs post的参数，键�?�对的形�?
 	 */
 	public void post(int taskId, String taskUrl, HashMap<String, String> taskArgs){
 		try{
-			taskPool.execute(new QuantaTaskThread(context, quantaHandler, taskId, taskUrl, taskArgs, 0));
+			taskPool.execute(new TaskThread(context, quantaHandler, taskId, taskUrl, taskArgs, 0));
 		}catch (Exception e){
 			taskPool.shutdown();
 		}
@@ -48,19 +48,19 @@ public class QuantaAsync{
 	
 	/**
 	 * execute http get task
-	 * @param taskId 标示任务的id, 在回调的时�?�可以判断是哪个任务完成�?
+	 * @param taskId 标示任务的id, 在回调的时�?�可以判断是哪个任务完成�?
 	 * @param taskUrl
 	 */
 	public void get(int taskId, String taskUrl){
 		try{
-			taskPool.execute(new QuantaTaskThread(context, quantaHandler, taskId, taskUrl, null, 0));
+			taskPool.execute(new TaskThread(context, quantaHandler, taskId, taskUrl, null, 0));
 		}catch (Exception e){
 			taskPool.shutdown();
 		}
 	}
 	
 	/**
-	 * 设置回调的接�?
+	 * 设置回调的接�?
 	 * @author wangjiewen
 	 *
 	 */
@@ -71,10 +71,10 @@ public class QuantaAsync{
 		 * @param taskId
 		 * @param baseMessage
 		 */
-		public void onComplete(int taskId, QuantaBaseMessage baseMessage);
+		public void onComplete(int taskId, BaseMessage baseMessage);
 		
 		/**
-		 * 网络任务成功完成，但不需要返回数�?
+		 * 网络任务成功完成，但不需要返回数�?
 		 * @param taskId
 		 */
 		public void onComplete(int taskId);

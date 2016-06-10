@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.listener.AsyncCommentListener;
 import com.allen.iguangwai.listener.AsyncUserDataListener;
 import com.allen.iguangwai.model.User;
@@ -23,7 +23,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 	User user;
 	private TextView back;
 	private EditText et_nickname, et_academy, et_major, et_signature;
-	private QuantaAsync sendUserDataAsync;
+	private Async sendUserDataAsync;
 	private LinearLayout save_ly;
 
 	@Override
@@ -46,7 +46,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 		save_ly = (LinearLayout) this.findViewById(R.id.save_ly);
 		save_ly.setOnClickListener(this);
 		back.setOnClickListener(this);
-		sendUserDataAsync = new QuantaAsync(ChangeDataActivity.this);
+		sendUserDataAsync = new Async(ChangeDataActivity.this);
 		sendUserDataAsync
 				.setQuantaAsyncListener(new AsyncUserDataListener(this));
 

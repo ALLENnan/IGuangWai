@@ -1,10 +1,10 @@
 package com.allen.iguangwai.model;
 
 import java.io.Serializable;
-import com.allen.iguangwai.async.QuantaBaseModel;
+import com.allen.iguangwai.async.BaseModel;
 
 /** 用户实体类 */
-public class User extends QuantaBaseModel implements Serializable {
+public class User extends BaseModel implements Serializable {
 
 	/** 用户id(账号) */
 	private String username;

@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import com.allen.iguangwai.activity.ContentActivity;
 import com.allen.iguangwai.activity.SearchActivity;
-import com.allen.iguangwai.async.QuantaBaseMessage;
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.BaseMessage;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
 import com.allen.iguangwai.dao.ArticleDao;
 import com.allen.iguangwai.model.Article;
 import com.allen.iguangwai.model.Comment;
@@ -30,7 +30,7 @@ public class AsyncCommentListener implements OnQuantaAsyncListener {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onComplete(int taskId, QuantaBaseMessage baseMessage) {
+	public void onComplete(int taskId, BaseMessage baseMessage) {
 		// TODO Auto-generated method stub
 		// Toast.makeText(activity, "正在加载评论..", Toast.LENGTH_SHORT).show();
 		// if (baseMessage.getStatus().equals("1")) {

@@ -6,8 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.allen.iguangwai.activity.SearchActivity;
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
-import com.allen.iguangwai.async.QuantaBaseMessage;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.BaseMessage;
 import com.allen.iguangwai.model.Article;
 
 public class AsyncsSearchListListener implements OnQuantaAsyncListener {
@@ -20,7 +20,7 @@ public class AsyncsSearchListListener implements OnQuantaAsyncListener {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onComplete(int taskId, QuantaBaseMessage baseMessage) {
+	public void onComplete(int taskId, BaseMessage baseMessage) {
 		// TODO Auto-generated method stub
 		// Toast.makeText(activity, "ÕýÔÚ¼ÓÔØ..", Toast.LENGTH_SHORT).show();
 		// if (baseMessage.getStatus().equals("1")) {

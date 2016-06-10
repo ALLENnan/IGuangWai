@@ -11,14 +11,22 @@
         android:layout_height="50dp"
         android:background="#18B4ED" >
 
-        <TextView
+        <LinearLayout
             android:id="@+id/search_back"
-            style="@style/backStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/back" />
+            android:background="@drawable/layout_selecter"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/backStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="8.0dip"
+                android:text="@string/back" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_title"
@@ -28,6 +36,23 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/searchtitle" />
+
+        <LinearLayout
+            android:id="@+id/tv_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/layout_selecter"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/tv_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="8.0dip"
+                android:text="@string/hot" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout

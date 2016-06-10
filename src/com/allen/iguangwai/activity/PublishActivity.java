@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.listener.AsyncPublishListener;
 import com.allen.iguangwai.util.ImageUtils;
 
@@ -47,7 +47,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 	private EditText title_et;
 	private EditText content_et;
 	private ImageView send;
-	private QuantaAsync publishAsync;
+	private Async publishAsync;
 	private RelativeLayout lin;// 用于判断软键盘是否弹出
 	private boolean isKeyBoardShow = false, isBQViewShow = false;// 软键盘是否弹出的状态
 	private boolean isADJUST_PAN = false, isADJUST_RESIZE = false;
@@ -61,7 +61,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setADJUST_RESIZE();
 		setContentView(R.layout.activity_publish);
-		publishAsync = new QuantaAsync(this);
+		publishAsync = new Async(this);
 		publishAsync.setQuantaAsyncListener(new AsyncPublishListener(this));
 		initView();
 		initclik();

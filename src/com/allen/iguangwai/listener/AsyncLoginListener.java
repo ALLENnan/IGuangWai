@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import com.allen.iguangwai.activity.MainActivity;
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
-import com.allen.iguangwai.async.QuantaBaseMessage;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.BaseMessage;
 import com.allen.iguangwai.model.User;
 
 public class AsyncLoginListener implements OnQuantaAsyncListener {
@@ -30,7 +30,7 @@ public class AsyncLoginListener implements OnQuantaAsyncListener {
 	}
 
 	@Override
-	public void onComplete(int taskId, QuantaBaseMessage baseMessage) {
+	public void onComplete(int taskId, BaseMessage baseMessage) {
 //
 //		Toast.makeText(activity, baseMessage.getStatus(), Toast.LENGTH_LONG)
 //				.show();

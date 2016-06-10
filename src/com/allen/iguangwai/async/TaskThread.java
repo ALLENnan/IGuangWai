@@ -11,14 +11,14 @@ import android.os.Message;
  * @author wangjiewen
  *
  */
-public class QuantaTaskThread implements Runnable{
+public class TaskThread implements Runnable{
 	
-	// 任务完成状�??
+	// 任务完成状�??
 	public static final int TASK_COMPLETE = 1000;
 	public static final int NETWORK_ERROR = 1001;
 	
 	private Context context = null;
-	private QuantaHandler quantaHandler = null;
+	private mHandler quantaHandler = null;
 	private int taskId = 0;
 	private String taskUrl;
 	private HashMap<String, String> taskArgs;
@@ -33,7 +33,7 @@ public class QuantaTaskThread implements Runnable{
 	 * @param taskArgs
 	 * @param delayTime
 	 */
-	public QuantaTaskThread(Context context, QuantaHandler quantaHandler, int taskId, String taskUrl, HashMap<String, String> taskArgs, int delayTime) {
+	public TaskThread(Context context, mHandler quantaHandler, int taskId, String taskUrl, HashMap<String, String> taskArgs, int delayTime) {
 		this.context = context;
 		this.quantaHandler = quantaHandler;
 		this.taskId = taskId;
@@ -51,7 +51,7 @@ public class QuantaTaskThread implements Runnable{
 				Thread.sleep(this.delayTime);
 			}
 			try {
-				QuantaHttpClient quantaHttpClient = new QuantaHttpClient(this.context, this.taskUrl);
+				mHttpClient quantaHttpClient = new mHttpClient(this.context, this.taskUrl);
 				if (this.taskArgs == null) {
 					httpResult = quantaHttpClient.get();
 				}else{
@@ -70,10 +70,10 @@ public class QuantaTaskThread implements Runnable{
 	}
 	
 	/**
-	 * 发�?�消息给handler处理
+	 * 发�?�消息给handler处理
 	 * @param what 任务完成与否
 	 * @param taskId 当前任务的id
-	 * @param data 任务完成之后的数�?
+	 * @param data 任务完成之后的数�?
 	 */
 	private void sendMessage(int what, int taskId, String data){
 		Bundle bundle = new Bundle();

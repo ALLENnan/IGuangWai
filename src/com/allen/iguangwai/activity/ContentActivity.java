@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.adapter.CommentListviewAdapter;
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.listener.AsyncCommentListener;
 import com.allen.iguangwai.listener.AsyncSendCommentListener;
 import com.allen.iguangwai.model.Article;
@@ -39,7 +39,7 @@ public class ContentActivity extends Activity implements OnClickListener {
 	private Button bt_getComment, bt_send;// 加载评论button、发送button
 	private ScrollView scrollview_content;
 	private EditText et_comment;// 评论编辑框
-	QuantaAsync CommentAsync, sendCommentAsync;
+	Async CommentAsync, sendCommentAsync;
 	Article article;
 	public static ArrayList<Comment> commentList = new ArrayList<Comment>();// 评论列表
 	public static CommentListviewAdapter adapter;
@@ -79,12 +79,12 @@ public class ContentActivity extends Activity implements OnClickListener {
 		/*
 		 * 取评论异步框架
 		 */
-		CommentAsync = new QuantaAsync(ContentActivity.this);
+		CommentAsync = new Async(ContentActivity.this);
 		CommentAsync.setQuantaAsyncListener(new AsyncCommentListener(this));
 		/*
 		 * 发表评论异步框架
 		 */
-		sendCommentAsync = new QuantaAsync(ContentActivity.this);
+		sendCommentAsync = new Async(ContentActivity.this);
 		sendCommentAsync.setQuantaAsyncListener(new AsyncSendCommentListener(
 				this, article, CommentAsync, adapter));
 

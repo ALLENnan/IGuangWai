@@ -87,7 +87,6 @@
     <style name="backStyle">
         <item name="android:drawableLeft">@drawable/back_arrow</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">10dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">17sp</item>
     </style>
@@ -98,6 +97,12 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="tv_text">
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="AnimationPreview">

@@ -7,21 +7,21 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
-import com.allen.iguangwai.async.QuantaAsync.OnQuantaAsyncListener;
-import com.allen.iguangwai.async.QuantaBaseMessage;
+import com.allen.iguangwai.async.Async;
+import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
+import com.allen.iguangwai.async.BaseMessage;
 import com.allen.iguangwai.model.Article;
 
 public class AsyncSendCommentListener implements OnQuantaAsyncListener {
 	private Activity activity;
 	Article article;
 	BaseAdapter adapter;
-	QuantaAsync CommentAsync;
+	Async CommentAsync;
 
 	// ArrayList<Comment> commentList;
 
 	public AsyncSendCommentListener(Activity activity, Article article,
-			QuantaAsync CommentAsync, BaseAdapter adapter) {
+			Async CommentAsync, BaseAdapter adapter) {
 		this.activity = activity;
 		this.article = article;
 		this.CommentAsync = CommentAsync;
@@ -30,7 +30,7 @@ public class AsyncSendCommentListener implements OnQuantaAsyncListener {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onComplete(int taskId, QuantaBaseMessage baseMessage) {
+	public void onComplete(int taskId, BaseMessage baseMessage) {
 
 		if (baseMessage.getStatus().equals("1")) {
 			try {

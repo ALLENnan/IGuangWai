@@ -31,7 +31,7 @@ import android.net.ParseException;
 import android.util.Log;
 
 
-public class QuantaAppUtil {
+public class AppUtil {
 
 	/**
 	 * md5 加密
@@ -60,7 +60,7 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * 首字母大�?
+	 * 首字母大�?
 	 * @param str
 	 * @return
 	 */
@@ -72,7 +72,7 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * �? EntityUtils.toString() 添加 gzip 解压功能
+	 * �? EntityUtils.toString() 添加 gzip 解压功能
 	 * @param entity
 	 * @param defaultCharset
 	 * @return
@@ -123,7 +123,7 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * �? EntityUtils.toString() 添加 gzip 解压功能
+	 * �? EntityUtils.toString() 添加 gzip 解压功能
 	 * @param entity
 	 * @return
 	 * @throws IOException
@@ -135,11 +135,11 @@ public class QuantaAppUtil {
 	}
 
 	public static SharedPreferences getSharedPreferences(Context ctx) {
-		return ctx.getSharedPreferences(QuantaConfig.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
+		return ctx.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
 	}
 
 	public static SharedPreferences getSharedPreferences(Service service) {
-		return service.getSharedPreferences(QuantaConfig.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
+		return service.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
 	}
 
 
@@ -148,8 +148,8 @@ public class QuantaAppUtil {
 	 * @param jsonStr
 	 * @return
 	 */
-	public static QuantaBaseMessage getMessage(String jsonStr) {
-		QuantaBaseMessage message = new QuantaBaseMessage();
+	public static BaseMessage getMessage(String jsonStr) {
+		BaseMessage message = new BaseMessage();
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(jsonStr);
@@ -171,27 +171,27 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * Model 数组转化�? Map 列表
+	 * Model 数组转化�? Map 列表
 	 * @param data
 	 * @param fields
 	 * @return
 	 */
 	public static List<? extends Map<String, ?>> dataToList(
-			List<? extends QuantaBaseModel> data, String[] fields) {
+			List<? extends BaseModel> data, String[] fields) {
 		ArrayList<HashMap<String, ?>> list = new ArrayList<HashMap<String, ?>>();
-		for (QuantaBaseModel item : data) {
+		for (BaseModel item : data) {
 			list.add((HashMap<String, ?>) dataToMap(item, fields));
 		}
 		return list;
 	}
 
 	/**
-	 * Model 转化�? Map
+	 * Model 转化�? Map
 	 * @param data
 	 * @param fields
 	 * @return
 	 */
-	public static Map<String, ?> dataToMap(QuantaBaseModel data, String[] fields) {
+	public static Map<String, ?> dataToMap(BaseModel data, String[] fields) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			for (String fieldName : fields) {
@@ -206,22 +206,22 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * 把从数据库查询的数据转为model的形�?
+	 * 把从数据库查询的数据转为model的形�?
 	 * 
-	 * @param className 模型的类名，不需要再加包�?
+	 * @param className 模型的类名，不需要再加包�?
 	 * @param mapList
 	 * @return
 	 * @throws Exception
 	 */
-	public static ArrayList<? extends QuantaBaseModel> hashMapToModel(String className, ArrayList<HashMap<String, String>> mapList)	throws Exception {
+	public static ArrayList<? extends BaseModel> hashMapToModel(String className, ArrayList<HashMap<String, String>> mapList)	throws Exception {
 
-		String modelClassName = QuantaConfig.MODEL_PACKAGE + "." + className;
-		ArrayList<QuantaBaseModel> modelList = new ArrayList<QuantaBaseModel>();
+		String modelClassName = Config.MODEL_PACKAGE + "." + className;
+		ArrayList<BaseModel> modelList = new ArrayList<BaseModel>();
 
 		for (HashMap<String, String> temp : mapList) {
-			QuantaBaseModel modelObj = (QuantaBaseModel) Class.forName(modelClassName)
+			BaseModel modelObj = (BaseModel) Class.forName(modelClassName)
 					.newInstance();
-			Class<? extends QuantaBaseModel> modelClass = modelObj.getClass();
+			Class<? extends BaseModel> modelClass = modelObj.getClass();
 			Iterator<String> it = temp.keySet().iterator();
 			while (it.hasNext()) {
 				String varField = it.next();
@@ -236,7 +236,7 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * 把jsonObject转为hashmap的格�?
+	 * 把jsonObject转为hashmap的格�?
 	 * 
 	 * @param jsonObject
 	 * @return
@@ -285,7 +285,7 @@ public class QuantaAppUtil {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-			Log.e("json", "json转换为arrayList时�?�错�?");
+			Log.e("json", "json转换为arrayList时�?�错�?");
 		} catch (Exception e) {
 			Log.e("json", "错误");
 		}
@@ -303,7 +303,7 @@ public class QuantaAppUtil {
 	}
 
 	/**
-	 * 获取毫秒�?
+	 * 获取毫秒�?
 	 * @return
 	 */
 	public static long getTimeMillis() {
@@ -362,7 +362,7 @@ public class QuantaAppUtil {
 	}
 
     /**
-     * 获得文件的后�?�?
+     * 获得文件的后�?�?
      * @param fileName
      * @return
      */
@@ -376,13 +376,13 @@ public class QuantaAppUtil {
 	}
     
     /**
-     * 生成cover的名�?
+     * 生成cover的名�?
      * @param url
      * @return
      */
     public static String getCoverName(String url){
-    	String cacheKey = QuantaAppUtil.md5(url);
-		String fileName = cacheKey + "." + QuantaAppUtil.getFileExt(url);
+    	String cacheKey = AppUtil.md5(url);
+		String fileName = cacheKey + "." + AppUtil.getFileExt(url);
 		return fileName;
     }
     

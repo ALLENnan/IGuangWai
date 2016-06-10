@@ -5,7 +5,7 @@ package com.allen.iguangwai.async;
  * @author wangjiewen
  *
  */
-public class QuantaConfig {
+public class Config {
 
 	/**
 	 * 姣忎釜搴旂敤�?惧疄浣搈odel鐨勫寘鍚嶏紝蹇呴』璁剧疆锛屽惁鍒欏皢浼氭壘涓嶅埌璺�?

@@ -65,6 +65,9 @@
     <string name="noacy">暂无动态</string>
     <string name="mymsy">我的私信</string>
     <string name="title">标题</string>
+    <string name="hot">热门</string>
+    <string name="hottopic">热门话题</string>
+    <string name="change">换一批</string>
     <string name="publish">发布帖子</string>
     <string name="searchtitle">标题搜索</string>
     <string name="searchContent">搜索感兴趣的内容</string>

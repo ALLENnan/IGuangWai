@@ -36,7 +36,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-public class QuantaHttpClient {
+public class mHttpClient {
 
 	// compress strategy
 	final private static int CS_NONE = 0;
@@ -56,12 +56,12 @@ public class QuantaHttpClient {
 	// charset default utf8
 	private String charset = HTTP.UTF_8;
 
-	public QuantaHttpClient(Context context, String url) {
+	public mHttpClient(Context context, String url) {
 		this.context = context;
 		initClient(url);
 	}
 
-	public QuantaHttpClient(String url, String charset, int compress) {
+	public mHttpClient(String url, String charset, int compress) {
 		initClient(url);
 		this.charset = charset; // set charset
 		this.compress = compress; // set strategy
@@ -209,7 +209,7 @@ public class QuantaHttpClient {
 		try {
 			switch (this.compress) {
 			case CS_GZIP:
-				result = QuantaAppUtil.gzipToString(entity);
+				result = AppUtil.gzipToString(entity);
 				break;
 			default:
 				result = EntityUtils.toString(entity);
@@ -245,10 +245,10 @@ public class QuantaHttpClient {
 
 			// 持久化cookie
 			String cookieStr = jsonCookieArr.toString();
-			SharedPreferences sp = QuantaAppUtil
+			SharedPreferences sp = AppUtil
 					.getSharedPreferences(this.context);
 			SharedPreferences.Editor editor = sp.edit();
-			editor.putString(QuantaConfig.PERSISTENT_COOKIE, cookieStr);
+			editor.putString(Config.PERSISTENT_COOKIE, cookieStr);
 			editor.commit();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -266,9 +266,9 @@ public class QuantaHttpClient {
 			cookieStore.clearExpired(new Date());
 			httpClient.setCookieStore(cookieStore);
 		} else {
-			SharedPreferences sp = QuantaAppUtil
+			SharedPreferences sp = AppUtil
 					.getSharedPreferences(this.context);
-			String cookieStr = sp.getString(QuantaConfig.PERSISTENT_COOKIE,
+			String cookieStr = sp.getString(Config.PERSISTENT_COOKIE,
 					null);
 			if (cookieStr == null) {
 				return;
@@ -314,7 +314,7 @@ public class QuantaHttpClient {
 			String method = Thread.currentThread().getStackTrace()[3]
 					.getMethodName();
 			Log.w(this.getClass().getSimpleName() + ":" + method, tag + ":"
-					+ QuantaAppUtil.getUsedMemory());
+					+ AppUtil.getUsedMemory());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

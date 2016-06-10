@@ -1,8 +1,8 @@
 package com.allen.iguangwai.model;
 
-import com.allen.iguangwai.async.QuantaBaseModel;
+import com.allen.iguangwai.async.BaseModel;
 
-public class Content extends QuantaBaseModel {
+public class Content extends BaseModel {
 	/** Ìù×Óid */
 	private String id;
 	/** Ìù×ÓÄÚÈİ */

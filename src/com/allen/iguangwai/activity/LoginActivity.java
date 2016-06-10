@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.listener.AsyncLoginListener;
 import com.allen.iguangwai.model.User;
 
@@ -29,7 +29,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private EditText edit_username;
 	private EditText edit_password;
 	private Button bt_login;
-	private QuantaAsync loginAsync;
+	private Async loginAsync;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		// getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 		// WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.login);
-		loginAsync = new QuantaAsync(LoginActivity.this);
+		loginAsync = new Async(LoginActivity.this);
 
 		findViews();
 		setlisteners();

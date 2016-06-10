@@ -21,7 +21,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.adapter.FragmentAdapter;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.dao.ArticleDao;
 import com.allen.iguangwai.fragment.MenuFragment;
 import com.allen.iguangwai.fragment.TabFragment;
@@ -41,7 +41,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 	// public static ArrayList<School> schoolList = new ArrayList<School>();
 	/** 贴子列表 */
 	public static ArrayList<Article> articleList = new ArrayList<Article>();
-	public static QuantaAsync articleListAsync;
+	public static Async articleListAsync;
 
 	// 左侧菜单
 	public SlidingMenu menu;
@@ -91,7 +91,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 		user.setName("");
 		user.setSignature("");
 		// 实例化异步管理器
-		articleListAsync = new QuantaAsync(this);
+		articleListAsync = new Async(this);
 
 		// 实例化一个article数据库操作类，从数据库返回articleList
 		ArticleDao articleDao = new ArticleDao(this);

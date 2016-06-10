@@ -15,11 +15,11 @@ import com.allen.iguangwai.activity.ContentActivity;
 import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.activity.SearchActivity;
 import com.allen.iguangwai.AppConfig;
-import com.allen.iguangwai.async.QuantaAsync;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.model.Article;
 
 public class ItemClickListener implements OnItemClickListener {
-	QuantaAsync contentAsync;
+	Async contentAsync;
 	public static Handler handler = null;
 	private Activity activity;
 	private int ActivityId;// ActivityId用来标识不同的Acitvity
@@ -44,7 +44,7 @@ public class ItemClickListener implements OnItemClickListener {
 		HashMap<String, String> taskArgs = new HashMap<String, String>();
 		taskArgs.put("ContentId", article.getId());
 
-		contentAsync = new QuantaAsync(activity);
+		contentAsync = new Async(activity);
 		contentAsync.post(2, AppConfig.contentUrl, taskArgs);
 		contentAsync.setQuantaAsyncListener(new AsyncContentListener(activity,ActivityId));
 
