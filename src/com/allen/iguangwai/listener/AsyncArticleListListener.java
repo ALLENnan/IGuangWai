@@ -29,20 +29,19 @@ public class AsyncArticleListListener implements OnQuantaAsyncListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onComplete(int taskId, BaseMessage baseMessage) {
-		// TODO Auto-generated method stub
 		Toast.makeText(activity, "正在加载..", Toast.LENGTH_SHORT).show();
 		// if (baseMessage.getStatus().equals("1")) {
-	
+
 		try {
 
 			MainActivity.articleList = (ArrayList<Article>) baseMessage
 					.getDataList("Article");
-	
-			// 保存到数据库
 
-			ArticleDao articleDao = new ArticleDao(activity);
-			articleDao.clearAllArticle();
-			articleDao.addArticle(MainActivity.articleList);
+			// 保存到数据库
+			// TODO
+			// ArticleDao articleDao = new ArticleDao(activity);
+			// articleDao.clearAllArticle();
+			// articleDao.addArticle(MainActivity.articleList);
 
 			// Toast.makeText(activity, "返回成功", Toast.LENGTH_SHORT).show();
 

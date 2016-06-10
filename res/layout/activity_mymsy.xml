@@ -29,12 +29,12 @@
             android:text="@string/mymsy" />
     </RelativeLayout>
 
-    <com.quanta.i_guangwai.view.SlideCutListView
+    <com.allen.iguangwai.widget.SlideCutListView
         android:id="@+id/slideCutListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_bar"
         android:divider="@drawable/reader_item_divider" >
-    </com.quanta.i_guangwai.view.SlideCutListView>
+    </com.allen.iguangwai.widget.SlideCutListView>
 
 </RelativeLayout>

@@ -19,14 +19,16 @@ import com.allen.iguangwai.activity.MyAcyActivity;
 import com.allen.iguangwai.activity.MyDataActivity;
 import com.allen.iguangwai.activity.MyMsyActivity;
 import com.allen.iguangwai.model.User;
+import com.allen.iguangwai.picasso.CircleTransform;
 import com.allen.iguangwai.util.Bitmaploader;
+import com.squareup.picasso.Picasso;
 
 /*
  * SlidingMenu填充的Fragment
  */
 public class MenuFragment extends Fragment implements OnClickListener {
 	private User user;
-	private ImageView head;
+	public static ImageView head;
 	private TextView user_name;
 	private LinearLayout mydata_bt, mymsg_bt, myacy_bt, offline_bt;
 	Activity activity;
@@ -80,12 +82,23 @@ public class MenuFragment extends Fragment implements OnClickListener {
 			user_name.setText(user.getRealname());// 设置真名
 
 			if (!user.getHead().equals("0")) {// 用户User类的getHead为0则为默认头像,不执行此方法
-				Bitmaploader bitmapTools = new Bitmaploader(
-						BitmapFactory.decodeResource(this.getResources(),
-								R.drawable.default_image));
-				bitmapTools.loadBitmap(user.getHead(), head, 100, 100, true);// 异步加载头像
+//				Bitmaploader bitmapTools = new Bitmaploader(
+//						BitmapFactory.decodeResource(this.getResources(),
+//								R.drawable.default_image));
+//				bitmapTools.loadBitmap(user.getHead(), head, 100, 100, true);// 异步加载头像
+
+				Picasso.with(getActivity()).load(user.getHead())
+						.placeholder(R.drawable.head).error(R.drawable.head)
+						
+						.transform(new CircleTransform()).into(head);
 			}
 		}
+		// else {
+		// Picasso.with(getActivity())
+		// .load("http://img3.duitang.com/uploads/blog/201405/03/20140503112526_VVGQE.thumb.700_0.jpeg")
+		// .transform(new CircleTransform())
+		// .into(head);
+		// }
 
 	}
 

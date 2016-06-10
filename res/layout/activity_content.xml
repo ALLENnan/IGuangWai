@@ -129,13 +129,13 @@
                 android:textSize="19sp"
                 android:visibility="gone" />
 
-            <com.quanta.i_guangwai.view.ListViewForScrollView
+            <com.allen.iguangwai.widget.ListViewForScrollView
                 android:id="@+id/listview_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_newcomment"
                 android:visibility="gone" >
-            </com.quanta.i_guangwai.view.ListViewForScrollView>
+            </com.allen.iguangwai.widget.ListViewForScrollView>
         </RelativeLayout>
     </ScrollView>
 

@@ -27,7 +27,7 @@ public class WelcomeActivity extends Activity {
 
 	private void initData() {
 		start_anima = new AlphaAnimation(0.6f, 1.0f);// 设置透明度渐变动画
-		start_anima.setDuration(4000);// 设置动画持续时间
+		start_anima.setDuration(400);// 设置动画持续时间
 		welcomeView.startAnimation(start_anima);
 
 		start_anima.setAnimationListener(new AnimationListener() {

@@ -3,7 +3,9 @@ package com.allen.iguangwai.adapter;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.model.Article;
+import com.allen.iguangwai.picasso.CircleTransform;
 import com.allen.iguangwai.util.Bitmaploader;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -49,13 +51,12 @@ public class MainListViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// 取出model类数据
-		Log.v("myLog", "getView");
+//		Log.v("MainListViewAdapter", "getArticleList");
 		// School mSchool = MainActivity.schoolList.get(position);
 		Article mArticle = MainActivity.articleList.get(position);
 		if (convertView == null) {
 			convertView = myInflater.inflate(R.layout.list_item, null);
 			holder = new AllViewHolder();
-			Log.v("myLog", "getView2");
 			holder.item_iv = (ImageView) convertView.findViewById(R.id.item_iv);
 			holder.title_tv = (TextView) convertView
 					.findViewById(R.id.title_tv);
@@ -72,8 +73,11 @@ public class MainListViewAdapter extends BaseAdapter {
 		holder.title_tv.setText(mArticle.getTitle());
 		holder.desc_tv.setText(mArticle.getDescription());
 		String imgURL = mArticle.getFirstPicUrl();
-
-		bitmapTools.loadBitmap(this, imgURL, holder.item_iv, 180, 180, false);
+		Picasso.with(context).load(imgURL)
+				.placeholder(R.drawable.default_image)
+				.error(R.drawable.default_image).into(holder.item_iv);
+		// bitmapTools.loadBitmap(this, imgURL, holder.item_iv, 180, 180,
+		// false);
 		this.notifyDataSetChanged();
 		return convertView;
 	}

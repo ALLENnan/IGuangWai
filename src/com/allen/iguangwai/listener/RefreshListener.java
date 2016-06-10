@@ -33,7 +33,6 @@ public class RefreshListener implements OnRefreshListener<ListView> {
 
 	@Override
 	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		// TODO Auto-generated method stub
 
 		String label = DateUtils.formatDateTime(activity,
 				System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
@@ -55,7 +54,6 @@ public class RefreshListener implements OnRefreshListener<ListView> {
 						taskArgs);// 联网取得当前主分区的贴子列表
 				Thread.sleep(2000);// 刷新时间
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

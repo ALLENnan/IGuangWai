@@ -102,6 +102,9 @@ public class ImageUtils {
 		}
 	}
 
+	/*
+	 * ±£´æÍ¼Æ¬µ½sd¿¨
+	 */
 	public static void savePhotoToSDCard(Bitmap photoBitmap, String path) {
 		if (checkSDCardAvailable()) {
 			File photoFile = new File(path);

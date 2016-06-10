@@ -81,7 +81,8 @@ public class MainActivity extends SlidingFragmentActivity implements
 	private int screen1_4;
 	private LinearLayout.LayoutParams lp;
 	public static User user;// 当前用户
-	private long mExitTime=System.currentTimeMillis();// 更新mExitTime
+	private long mExitTime = System.currentTimeMillis();// 更新mExitTime
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,13 +91,13 @@ public class MainActivity extends SlidingFragmentActivity implements
 		user = (User) getIntent().getSerializableExtra("user");
 		user.setName("");
 		user.setSignature("");
+
 		// 实例化异步管理器
 		articleListAsync = new Async(this);
-
 		// 实例化一个article数据库操作类，从数据库返回articleList
-		ArticleDao articleDao = new ArticleDao(this);
-		articleList = articleDao.getArticleList();
-
+		// ArticleDao articleDao = new ArticleDao(this);
+		// articleList = articleDao.getArticleList();
+		// TODO
 		findViews();// 根据id从xml找到对应的view
 		initViews();
 		setlisteners();
@@ -180,7 +181,6 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 	/** 初始化viewPager */
 	private void initViewPager() {
-		// TODO Auto-generated method stub
 		viewPager = (ViewPager) findViewById(R.id.four_vp);
 		fragmentsList = new ArrayList<Fragment>();
 		Tab1_fragment = new TabFragment();
@@ -220,7 +220,6 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 			@Override
 			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
 
 				initIcon();
 				setInvisible();
@@ -248,7 +247,6 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 	/** 初始化tab界面 */
 	private void initAllTab() {
-		// TODO Auto-generated method stub
 		setInvisible();
 		tab1_expand.setVisibility(View.VISIBLE);// 设置第一页的展开图标为可见的
 	}
@@ -350,7 +348,6 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 	/** 设置主分区的所有展开图标和所有子分区view为不可见 */
 	private void setInvisible() {
-		// TODO Auto-generated method stub
 		tab1_expand.setVisibility(View.INVISIBLE);
 		tab2_expand.setVisibility(View.INVISIBLE);
 		tab3_expand.setVisibility(View.INVISIBLE);
@@ -373,24 +370,22 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
 
 		if (menu.isMenuShowing()) {// 判断抽屉是否展开
 			menu.showContent();// 收起抽屉
 			return false;
-		}
-		else {
+		} else {
 			if (keyCode == KeyEvent.KEYCODE_BACK) {
 				if ((System.currentTimeMillis() - mExitTime) > 2000) {// 如果两次按键时间间隔大于2000毫秒，则不退出
-				Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
-				mExitTime = System.currentTimeMillis();// 更新mExitTime
+					Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+					mExitTime = System.currentTimeMillis();// 更新mExitTime
 				} else {
-				System.exit(0);// 否则退出程序
+					System.exit(0);// 否则退出程序
 				}
 				return true;
+			}
+			return super.onKeyDown(keyCode, event);
 		}
-		return super.onKeyDown(keyCode, event);
-	}
-	
 
-}}
+	}
+}

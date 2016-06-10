@@ -27,10 +27,15 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.allen.iguangwai.R;
+import com.allen.iguangwai.fragment.MenuFragment;
 import com.allen.iguangwai.model.User;
+import com.allen.iguangwai.picasso.CircleTransform;
 import com.allen.iguangwai.util.Bitmaploader;
 import com.allen.iguangwai.widget.MyScrollView.OnScrollListener;
+import com.squareup.picasso.Picasso;
 
 /*
  * 我的资料，用来设置头像
@@ -60,14 +65,14 @@ public class MyDataActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mydata);
-		user = (User) getIntent().getSerializableExtra("user");
+		// user = (User) getIntent().getSerializableExtra("user");
+		user = MainActivity.user;
 		initPath();
 		initView();
 		setUserInfo();
 	}
 
 	private void setUserInfo() {
-		// TODO Auto-generated method stub
 		name.setText(user.getName());
 		academy.setText(user.getAcademy());
 		major.setText(user.getMajor());
@@ -93,17 +98,29 @@ public class MyDataActivity extends Activity implements OnClickListener,
 		back.setOnClickListener(this);
 		change.setOnClickListener(this);
 		if (!user.getHead().equals("0")) {// 用户User类的getHead为0则为默认头像,不执行此方法
-			Bitmaploader bitmapTools = new Bitmaploader(
-					BitmapFactory.decodeResource(this.getResources(),
-							R.drawable.default_image));
-			bitmapTools.loadBitmap(user.getHead(), head, 150, 150, true);// 异步加载头像\
+			// Bitmaploader bitmapTools = new Bitmaploader(
+			// BitmapFactory.decodeResource(this.getResources(),
+			// R.drawable.default_image));
+			// bitmapTools.loadBitmap(user.getHead(), head, 150, 150, true);//
+			// 异步加载头像\
+			Toast.makeText(this, "地址" + user.getHead(), Toast.LENGTH_LONG)
+					.show();
+			if (user.getHead().contains("http")) {
+				Picasso.with(this).load(user.getHead())
+						.placeholder(R.drawable.head).error(R.drawable.head)
+						.transform(new CircleTransform()).into(head);
+			} else {
+				File file = new File(user.getHead());
+				Picasso.with(this).load(file).placeholder(R.drawable.head)
+						.error(R.drawable.head)
+						.transform(new CircleTransform()).into(head);
+			}
 
 		}
 
 	}
 
 	private void initPath() {
-		// TODO Auto-generated method stub
 		File file = new File(Environment.getExternalStorageDirectory(),
 				"ClipHeadPhoto/cache");
 		if (!file.exists())
@@ -230,6 +247,10 @@ public class MyDataActivity extends Activity implements OnClickListener,
 		case IMAGE_COMPLETE:
 			final String temppath = data.getStringExtra("path");
 			head.setImageBitmap(getLoacalBitmap(temppath));
+			// TODO
+			MenuFragment.head.setImageBitmap(getLoacalBitmap(temppath));
+			user.setHead(temppath);
+
 			break;
 		default:
 			break;

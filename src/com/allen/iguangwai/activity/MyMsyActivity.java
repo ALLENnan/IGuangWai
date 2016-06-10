@@ -42,12 +42,17 @@ public class MyMsyActivity extends Activity implements RemoveListener,
 		back = (TextView) findViewById(R.id.msy_back);
 		back.setOnClickListener(this);
 		dataSourceList.add("启南");
-		dataSourceList.add("陈悦");
-		dataSourceList1.add("哈哈加薪是个逗比...");
-		dataSourceList1.add("我也觉得是...");
+		dataSourceList.add("梓杰");
+		dataSourceList.add("阳温");
+		dataSourceList.add("宇耕");
+		dataSourceList1.add("Android工程师");
+		dataSourceList1.add("Web后台工程师");
+		dataSourceList1.add("Web后台工程师");
+		dataSourceList1.add("产品经理兼设计师");
 		dataSourceList2.add(R.drawable.head_first);
 		dataSourceList2.add(R.drawable.head_second);
-
+		dataSourceList2.add(R.drawable.head_first);
+		dataSourceList2.add(R.drawable.head_second);
 		adapter = new MyMsyItemAdapter(this);
 		adapter.setData(dataSourceList, dataSourceList1, dataSourceList2);
 		slideCutListView.setAdapter(adapter);

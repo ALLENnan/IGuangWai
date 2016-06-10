@@ -10,7 +10,7 @@ public class Config {
 	/**
 	 * 姣忎釜搴旂敤�?惧疄浣搈odel鐨勫寘鍚嶏紝蹇呴』璁剧疆锛屽惁鍒欏皢浼氭壘涓嶅埌璺�?
 	 */
-	public final static String MODEL_PACKAGE = "com.quanta.i_guangwai.model";
+	public final static String MODEL_PACKAGE = "com.allen.iguangwai.model";
 	
 	/**
 	 * 鍏ㄥ眬sharepreference鐨勫悕�?��, 寤鸿鏍规嵁鑷繁鐨勫簲鐢ㄨ缃�?

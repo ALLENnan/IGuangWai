@@ -45,12 +45,12 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <com.quanta.i_guangwai.clip.ClipImageLayout
+    <com.allen.iguangwai.clip.ClipImageLayout
         android:id="@+id/id_clipImageLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/rl_botom"
         android:layout_alignParentLeft="true" >
-    </com.quanta.i_guangwai.clip.ClipImageLayout>
+    </com.allen.iguangwai.clip.ClipImageLayout>
 
 </RelativeLayout>
