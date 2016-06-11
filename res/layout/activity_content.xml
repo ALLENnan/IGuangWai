@@ -113,9 +113,10 @@
                 android:layout_below="@+id/contentView"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@color/lightgray"
-                android:text="加载评论" 
-                android:textSize="15sp"/>
+                android:background="@color/bg"
+                android:text="查看评论"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_newcomment"

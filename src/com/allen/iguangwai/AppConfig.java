@@ -6,7 +6,7 @@ package com.allen.iguangwai;
 public class AppConfig {
 
 	public static String USERNAME;
-	public static final String loginUrl = "http://192.168.203.90/igdufs/index.php/home/Appsystemloadjson/jsontest";
+	/*public static final String loginUrl = "http://192.168.203.90/igdufs/index.php/home/Appsystemloadjson/jsontest";
 
 	public static final String articleUrl = "http://192.168.203.90/igdufs/index.php/home/Appstudypostsjson/postsjson";
 	public static final String articleUrl2 = "http://192.168.203.90/igdufs/index.php/home/Appstudypostsjson/postsjson";
@@ -16,5 +16,17 @@ public class AppConfig {
 	public static final String SearchUrl = "http://192.168.203.90/igdufs/index.php/home/Appstudypostsjson/searchjson";
 	public static final String getCommentUrl = "http://192.168.203.90/igdufs/index.php/home/Appcommentjson/commentjson";
 	public static final String sendCommentUrl = "http://192.168.203.90/igdufs/index.php/home/Appcommentjson/sentcommentjson";
-	public static final String sendUserDataUrl = "http://192.168.203.90/igdufs/index.php/home/Appuserinfojson/userinfojson";
+	public static final String sendUserDataUrl = "http://192.168.203.90/igdufs/index.php/home/Appuserinfojson/userinfojson";*/
+	public static final String loginUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/login";
+
+	public static final String articleUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/getArticle";
+	public static final String articleUrl2 = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/";
+
+	public static final String contentUrl = "http://192.168.203.90/igdufs/index.php/home/Appsentpostjson/postcontentjson";
+	public static final String publishUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/postUserArticle";
+	public static final String SearchUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/findArticle";
+	public static final String getCommentUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/getComment";
+	public static final String sendCommentUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/postComment";
+	public static final String sendUserDataUrl = "http://192.168.203.90/igdufs1/index.php/home/AndroidApi/updateUserInfo";
+
 }

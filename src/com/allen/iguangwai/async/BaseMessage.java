@@ -120,7 +120,7 @@ public class BaseMessage {
 					}
 					this.resultList.put(modelName, modelList);
 				}
-			}
+			}	
 		}
 	}
 

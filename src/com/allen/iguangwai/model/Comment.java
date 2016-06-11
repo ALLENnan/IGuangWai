@@ -3,30 +3,27 @@ package com.allen.iguangwai.model;
 import com.allen.iguangwai.async.BaseModel;
 
 public class Comment extends BaseModel {
-	/**
-	 * 评论id
-	 */
+	/** 评论id */
 	private String id;
-	/**
-	 * 评论者的账号
-	 */
+	/** 评论者的账号 */
 	private String commentusername;
-	/**
-	 * 评论者的昵称
-	 */
+	/** 评论者的昵称 */
 	private String commentnickname;
-	/**
-	 * 评论的内容
-	 */
+	/** 评论的内容 */
 	private String comment;
-	/**
-	 * 评论者的昵称
-	 */
+	/** 评论者的昵称 */
 	private String commentdate;
-	/**
-	 * 评论者的头像地址
-	 */
+	/** 评论者的头像地址 */
 	private String head;
+	private String cid;
+
+	public String getCid() {
+		return cid;
+	}
+
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 
 	public String getId() {
 		return id;

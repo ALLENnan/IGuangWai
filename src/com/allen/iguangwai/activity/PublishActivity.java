@@ -278,7 +278,12 @@ public class PublishActivity extends Activity implements OnClickListener {
 					Bitmap bitmap = null;
 					if (requestCode == SELECT_CAMER) {
 						path = getExternalCacheDir() + "/edtimg.jpg";
+						LogUtil.v("PublishActivity-->path", path + "");
 						bitmap = BitmapFactory.decodeFile(path);
+						// 压缩
+						bitmap = ImageUtils.comp(bitmap);
+						ImageUtils.savePhotoToSDCard(bitmap, path);
+
 					} else if (requestCode == SELECT_PICTURE) {
 						Uri uri = data.getData();
 
@@ -291,18 +296,24 @@ public class PublishActivity extends Activity implements OnClickListener {
 						// bitmap = MediaStore.Images.Media.getBitmap(
 						// resolver, uri);
 
-						String[] proj = { MediaStore.Images.Media.DATA };
-						Cursor cursor = managedQuery(uri, proj, null, null,
-								null);
-						int column_index = cursor
-								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-						cursor.moveToFirst();
-						path = cursor.getString(column_index);
-						LogUtil.v("PublishActivity-->path", path + "");
+						// String[] proj = { MediaStore.Images.Media.DATA };
+						// Cursor cursor = managedQuery(uri, proj, null, null,
+						// null);
+						// int column_index = cursor
+						// .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+						// cursor.moveToFirst();
+						// path = cursor.getString(column_index);
+						// LogUtil.v("PublishActivity-->path", path + "");
 
 						try {
 							bitmap = BitmapFactory.decodeStream(resolver
 									.openInputStream(uri));
+							// 压缩
+							bitmap = ImageUtils.comp(bitmap);
+							path = getExternalCacheDir() + "/picture.jpg";
+							ImageUtils.savePhotoToSDCard(bitmap, path);
+							LogUtil.v("PublishActivity-->path", path + "");
+
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
@@ -311,7 +322,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 					msg.what = 0;
 					msg.obj = ThumbnailUtils.extractThumbnail(bitmap, 300, 300);
 					handler.sendMessage(msg);
-					ImageUtils.comp(bitmap);
+					// ImageUtils.comp(bitmap);
 					//
 				}
 			});
@@ -380,7 +391,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 	}
 
 	private void send() {
-		pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
+		// pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
 		title = title_et.getText().toString();
 		content = content_et.getText().toString();
 		HashMap<String, Object> taskArgs = null;
@@ -426,12 +437,13 @@ public class PublishActivity extends Activity implements OnClickListener {
 				fileparams = new HashMap<String, File>();
 				// 要上传的图片文件
 				if (path != null) {
+
 					File file = new File(path);
 					fileparams.put("pic", file);
 				}
 				textParams.put("id", MainActivity.user.getUsername());
-				textParams.put("area", "学习区");
-				textParams.put("type", "考试");
+				textParams.put("area", "考試");
+				textParams.put("type", "学习区");
 				textParams.put("title", title);
 				textParams.put("description", "摘要");
 				textParams.put("content", content);
@@ -463,13 +475,14 @@ public class PublishActivity extends Activity implements OnClickListener {
 					// 得到网络返回的输入流
 					InputStream is = conn.getInputStream();
 					resultStr = NetUtil.readString(is);
-					handler.sendEmptyMessage(1);
+					// handler.sendEmptyMessage(1);
 					LogUtil.v("PublishActivity--uploadImageRunnable", "响应码200"
 							+ resultStr);
 				} else {
-					LogUtil.v("PublishActivity--uploadImageRunnable", "请求URI失败"
-							+ resultStr);
-					handler.sendEmptyMessage(2);
+					// InputStream is = conn.getInputStream();
+					// resultStr = NetUtil.readString(is);
+					LogUtil.v("PublishActivity--uploadImageRunnable", "请求URI失败");
+					// handler.sendEmptyMessage(2);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

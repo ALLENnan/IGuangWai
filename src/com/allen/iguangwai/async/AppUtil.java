@@ -24,17 +24,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.socks.library.KLog;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.util.Log;
 
-
 public class AppUtil {
 
 	/**
 	 * md5 加密
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -61,6 +63,7 @@ public class AppUtil {
 
 	/**
 	 * 首字母大�?
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -73,6 +76,7 @@ public class AppUtil {
 
 	/**
 	 * �? EntityUtils.toString() 添加 gzip 解压功能
+	 * 
 	 * @param entity
 	 * @param defaultCharset
 	 * @return
@@ -124,6 +128,7 @@ public class AppUtil {
 
 	/**
 	 * �? EntityUtils.toString() 添加 gzip 解压功能
+	 * 
 	 * @param entity
 	 * @return
 	 * @throws IOException
@@ -135,16 +140,18 @@ public class AppUtil {
 	}
 
 	public static SharedPreferences getSharedPreferences(Context ctx) {
-		return ctx.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
+		return ctx.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,
+				Context.MODE_PRIVATE);
 	}
 
 	public static SharedPreferences getSharedPreferences(Service service) {
-		return service.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,	Context.MODE_PRIVATE);
+		return service.getSharedPreferences(Config.SHARE_PREFERENCE_NAME,
+				Context.MODE_PRIVATE);
 	}
-
 
 	/**
 	 * 将http json 格式转为QuantaMessage形式
+	 * 
 	 * @param jsonStr
 	 * @return
 	 */
@@ -157,11 +164,13 @@ public class AppUtil {
 				message.setData(jsonObject.getString("data"));
 				message.setInfo(jsonObject.getString("info"));
 				message.setStatus(jsonObject.getString("status"));
-			}
+			}	
 		} catch (JSONException e) {
 			message = null;
 			// throw new Exception("Json format error");
+			
 			Log.e("QuantaAppUtil-->getMessage", "Json format error"+"---:"+jsonStr);
+			KLog.json(jsonStr);
 			e.printStackTrace();
 		} catch (Exception e) {
 			message = null;
@@ -172,6 +181,7 @@ public class AppUtil {
 
 	/**
 	 * Model 数组转化�? Map 列表
+	 * 
 	 * @param data
 	 * @param fields
 	 * @return
@@ -187,6 +197,7 @@ public class AppUtil {
 
 	/**
 	 * Model 转化�? Map
+	 * 
 	 * @param data
 	 * @param fields
 	 * @return
@@ -208,12 +219,15 @@ public class AppUtil {
 	/**
 	 * 把从数据库查询的数据转为model的形�?
 	 * 
-	 * @param className 模型的类名，不需要再加包�?
+	 * @param className
+	 *            模型的类名，不需要再加包�?
 	 * @param mapList
 	 * @return
 	 * @throws Exception
 	 */
-	public static ArrayList<? extends BaseModel> hashMapToModel(String className, ArrayList<HashMap<String, String>> mapList)	throws Exception {
+	public static ArrayList<? extends BaseModel> hashMapToModel(
+			String className, ArrayList<HashMap<String, String>> mapList)
+			throws Exception {
 
 		String modelClassName = Config.MODEL_PACKAGE + "." + className;
 		ArrayList<BaseModel> modelList = new ArrayList<BaseModel>();
@@ -294,6 +308,7 @@ public class AppUtil {
 
 	/**
 	 * 判断int是否为空
+	 * 
 	 * @param v
 	 * @return
 	 */
@@ -304,6 +319,7 @@ public class AppUtil {
 
 	/**
 	 * 获取毫秒�?
+	 * 
 	 * @return
 	 */
 	public static long getTimeMillis() {
@@ -312,6 +328,7 @@ public class AppUtil {
 
 	/**
 	 * 获取耗费内存
+	 * 
 	 * @return
 	 */
 	public static long getUsedMemory() {
@@ -319,71 +336,73 @@ public class AppUtil {
 		long free = Runtime.getRuntime().freeMemory();
 		return total - free;
 	}
-	
+
 	/**
-	 * 复制对象
-     * Copy obj to desc.
-     * 
-     */
-    public static void copyProperties(Object desc, Object obj){
-        Class<?> descClass = desc.getClass();
-        Class<?> objClass = obj.getClass();
-        Field[] fields = objClass.getDeclaredFields();
-        try {
-            for (int i = 0; i < fields.length; i++) {
-                String name = fields[i].getName();
-                String getMethodName = "get"+toFirstLetterUpperCase(name);
-                String setMethodName = "set"+toFirstLetterUpperCase(name);
-                try{
-                	Object value = objClass.getMethod(getMethodName).invoke(obj);
-                	descClass.getMethod(setMethodName, value.getClass()).invoke(desc, value);
-                }catch(Exception e){
-                }
-            }
-        } catch (Exception e) {
-            
-        }
-    }
-    
-    public static String toFirstLetterUpperCase(String str) {
-    	if(str == null || str.length() < 2){
-    		return str;
-    	}
-        String firstLetter = str.substring(0, 1).toUpperCase();
-        return firstLetter + str.substring(1, str.length());
-    }
-    
-    
-    public static String getNowDate() {
+	 * 复制对象 Copy obj to desc.
+	 * 
+	 */
+	public static void copyProperties(Object desc, Object obj) {
+		Class<?> descClass = desc.getClass();
+		Class<?> objClass = obj.getClass();
+		Field[] fields = objClass.getDeclaredFields();
+		try {
+			for (int i = 0; i < fields.length; i++) {
+				String name = fields[i].getName();
+				String getMethodName = "get" + toFirstLetterUpperCase(name);
+				String setMethodName = "set" + toFirstLetterUpperCase(name);
+				try {
+					Object value = objClass.getMethod(getMethodName)
+							.invoke(obj);
+					descClass.getMethod(setMethodName, value.getClass())
+							.invoke(desc, value);
+				} catch (Exception e) {
+				}
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	public static String toFirstLetterUpperCase(String str) {
+		if (str == null || str.length() < 2) {
+			return str;
+		}
+		String firstLetter = str.substring(0, 1).toUpperCase();
+		return firstLetter + str.substring(1, str.length());
+	}
+
+	public static String getNowDate() {
 		StringBuffer sbBuffer = new StringBuffer();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sbBuffer.append(format.format(Calendar.getInstance().getTime()));
 		return sbBuffer.toString();
 	}
 
-    /**
-     * 获得文件的后�?�?
-     * @param fileName
-     * @return
-     */
-    public static String getFileExt(String fileName){
+	/**
+	 * 获得文件的后�?�?
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static String getFileExt(String fileName) {
 		String[] arr = fileName.split("\\.");
 		if (arr.length <= 1) {
 			return "";
-		}else{
-			return arr[arr.length-1].toLowerCase();
+		} else {
+			return arr[arr.length - 1].toLowerCase();
 		}
 	}
-    
-    /**
-     * 生成cover的名�?
-     * @param url
-     * @return
-     */
-    public static String getCoverName(String url){
-    	String cacheKey = AppUtil.md5(url);
+
+	/**
+	 * 生成cover的名�?
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String getCoverName(String url) {
+		String cacheKey = AppUtil.md5(url);
 		String fileName = cacheKey + "." + AppUtil.getFileExt(url);
 		return fileName;
-    }
-    
+	}
+
 }

@@ -45,6 +45,7 @@ public class ContentActivity extends Activity implements OnClickListener {
 	public static ArrayList<Comment> commentList = new ArrayList<Comment>();// 评论列表
 	public static CommentListviewAdapter adapter;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,7 +72,7 @@ public class ContentActivity extends Activity implements OnClickListener {
 		bt_getComment = (Button) this.findViewById(R.id.bt_getComment);
 		et_comment = (EditText) this.findViewById(R.id.et_comment);
 		bt_send = (Button) this.findViewById(R.id.bt_send);
-
+		
 		/*
 		 * 给listview设置adapter
 		 */
@@ -111,8 +112,8 @@ public class ContentActivity extends Activity implements OnClickListener {
 		// width - 40, width - 40, false);// 异步加载头像
 
 		Picasso.with(this).load(article.getFirstPicUrl())
-				.placeholder(R.drawable.default_image).error(R.drawable.default_image)
-				.into(image_content);
+				.placeholder(R.drawable.default_image)
+				.error(R.drawable.default_image).into(image_content);
 
 	}
 

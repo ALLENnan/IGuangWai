@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -13,9 +14,11 @@ import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.ContentActivity;
 import com.allen.iguangwai.model.Comment;
 import com.allen.iguangwai.picasso.CircleTransform;
+import com.socks.library.KLog;
 import com.squareup.picasso.Picasso;
 
-public class CommentListviewAdapter extends BaseAdapter {
+public class CommentListviewAdapter extends BaseAdapter implements
+		OnClickListener {
 	private Context context;
 	LayoutInflater myInflater;
 	AllViewHolder holder;
@@ -51,7 +54,7 @@ public class CommentListviewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Comment comment = ContentActivity.commentList.get(position);
+		final Comment comment = ContentActivity.commentList.get(position);
 		if (convertView == null) {
 			convertView = myInflater.inflate(R.layout.comment_list_item, null);
 			holder = new AllViewHolder();
@@ -79,6 +82,15 @@ public class CommentListviewAdapter extends BaseAdapter {
 				.error(R.drawable.head)
 
 				.transform(new CircleTransform()).into(holder.commentHead);
+		holder.commentHead.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String uid = comment.getCommentusername();
+				KLog.v("commentHead", uid);
+
+			}
+		});
 		return convertView;
 	}
 
@@ -86,5 +98,18 @@ public class CommentListviewAdapter extends BaseAdapter {
 		ImageView commentHead;
 		TextView nickname;
 		TextView comment;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.commentHead:
+
+			break;
+
+		default:
+			break;
+		}
+
 	}
 }
