@@ -58,7 +58,7 @@ import com.allen.iguangwai.util.LogUtil;
 import com.allen.iguangwai.util.NetUtil;
 
 public class PublishActivity extends Activity implements OnClickListener {
-
+	public Context context;
 	private TextView back;
 	private EditText title_et;
 	private EditText content_et;
@@ -83,6 +83,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = this;
 		setADJUST_RESIZE();
 		setContentView(R.layout.activity2_publish);
 		publishAsync = new Async(this);
@@ -350,8 +351,10 @@ public class PublishActivity extends Activity implements OnClickListener {
 				try {
 					JSONObject jsonObject = new JSONObject(resultStr);
 					if (jsonObject.optString("status").equals("1")) {
+						Toast.makeText(context, "发布成功", Toast.LENGTH_SHORT);
 						LogUtil.v("PublishActivity-->handleMessage", "发布成功");
 					} else {
+						Toast.makeText(context, "发布失败", Toast.LENGTH_SHORT);
 						LogUtil.v("PublishActivity-->handleMessage", "发布失败");
 					}
 
@@ -361,7 +364,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 				break;
 			case 2:
 				pd.dismiss();
-
+				Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT);
 				LogUtil.v("PublishActivity-->handleMessage", "网络不给力");
 				break;
 			}
@@ -391,7 +394,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 	}
 
 	private void send() {
-		// pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
+		pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
 		title = title_et.getText().toString();
 		content = content_et.getText().toString();
 		HashMap<String, Object> taskArgs = null;
@@ -475,14 +478,14 @@ public class PublishActivity extends Activity implements OnClickListener {
 					// 得到网络返回的输入流
 					InputStream is = conn.getInputStream();
 					resultStr = NetUtil.readString(is);
-					// handler.sendEmptyMessage(1);
+					handler.sendEmptyMessage(1);
 					LogUtil.v("PublishActivity--uploadImageRunnable", "响应码200"
 							+ resultStr);
 				} else {
 					// InputStream is = conn.getInputStream();
 					// resultStr = NetUtil.readString(is);
 					LogUtil.v("PublishActivity--uploadImageRunnable", "请求URI失败");
-					// handler.sendEmptyMessage(2);
+					handler.sendEmptyMessage(2);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

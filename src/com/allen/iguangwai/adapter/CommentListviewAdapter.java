@@ -1,7 +1,9 @@
 package com.allen.iguangwai.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,7 +14,12 @@ import android.widget.TextView;
 
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.ContentActivity;
+import com.allen.iguangwai.activity.LoginActivity;
+import com.allen.iguangwai.activity.MainActivity;
+import com.allen.iguangwai.activity.OtherDataActivity;
+import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.model.Comment;
+import com.allen.iguangwai.model.User;
 import com.allen.iguangwai.picasso.CircleTransform;
 import com.socks.library.KLog;
 import com.squareup.picasso.Picasso;
@@ -86,8 +93,13 @@ public class CommentListviewAdapter extends BaseAdapter implements
 
 			@Override
 			public void onClick(View v) {
-				String uid = comment.getCommentusername();
-				KLog.v("commentHead", uid);
+				String username = comment.getCommentusername();
+				Intent intent = new Intent();
+
+				intent.putExtra("username", username);
+				intent.setClass(context, OtherDataActivity.class);
+				context.startActivity(intent);
+				// Async loginAsync = new Async();
 
 			}
 		});

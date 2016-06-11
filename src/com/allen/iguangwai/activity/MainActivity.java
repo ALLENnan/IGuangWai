@@ -1,6 +1,7 @@
 package com.allen.iguangwai.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.allen.iguangwai.AppConfig;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.adapter.FragmentAdapter;
 import com.allen.iguangwai.async.Async;
@@ -92,12 +94,17 @@ public class MainActivity extends SlidingFragmentActivity implements
 		user.setName("");
 		user.setSignature("");
 
+		// 实例化一个article数据库操作类，从数据库返回articleList
+		ArticleDao articleDao = new ArticleDao(this);
+		articleList = articleDao.getArticleList();
+		// TODO
+
 		// 实例化异步管理器
 		articleListAsync = new Async(this);
-		// 实例化一个article数据库操作类，从数据库返回articleList
-		// ArticleDao articleDao = new ArticleDao(this);
-		// articleList = articleDao.getArticleList();
-		// TODO
+		HashMap<String, String> taskArgs = new HashMap<String, String>();
+		taskArgs.put("Article", "share");// 选择分区
+		articleListAsync.post(2, AppConfig.articleUrl, taskArgs);// 联网取得当前主分区的贴子列表
+
 		findViews();// 根据id从xml找到对应的view
 		initViews();
 		setlisteners();

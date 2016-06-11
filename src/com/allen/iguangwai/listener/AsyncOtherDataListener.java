@@ -3,48 +3,41 @@ package com.allen.iguangwai.listener;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.allen.iguangwai.activity.MainActivity;
-import com.allen.iguangwai.async.BaseMessage;
+import com.allen.iguangwai.activity.OtherDataActivity;
+import com.allen.iguangwai.activity.SearchActivity;
 import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
-import com.allen.iguangwai.dao.ArticleDao;
-import com.allen.iguangwai.fragment.TabFragment;
+import com.allen.iguangwai.async.BaseMessage;
 import com.allen.iguangwai.model.Article;
+import com.allen.iguangwai.model.Content;
+import com.allen.iguangwai.model.User;
 
-/**
- * 异步http请求监听器 监听请求事件
- */
-public class AsyncArticleListListener implements OnQuantaAsyncListener {
-
+public class AsyncOtherDataListener implements OnQuantaAsyncListener {
 	private Activity activity;
+	Handler handler;
 
-	// ArrayList<Article> articleList;
-
-	public AsyncArticleListListener(Activity activity) {
+	public AsyncOtherDataListener(Activity activity, Handler handler) {
 		this.activity = activity;
-
+		this.handler = handler;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onComplete(int taskId, BaseMessage baseMessage) {
+		// TODO Auto-generated method stub
 		Toast.makeText(activity, "正在加载..", Toast.LENGTH_SHORT).show();
 		// if (baseMessage.getStatus().equals("1")) {
 
 		try {
-
-			MainActivity.articleList = (ArrayList<Article>) baseMessage
-					.getDataList("Article");
-			TabFragment.adapter.notifyDataSetChanged();//更新
-			// // 保存到数据库
-			// // TODO
-			ArticleDao articleDao = new ArticleDao(activity);
-			articleDao.clearAllArticle();
-			articleDao.addArticle(MainActivity.articleList);
-			//
-			// // Toast.makeText(activity, "返回成功", Toast.LENGTH_SHORT).show();
+			User user = (User) baseMessage.getData("User");
+			Message message = Message.obtain();
+			message.obj = user;
+			handler.sendMessage(message);
 
 		} catch (Exception e) {
 			e.printStackTrace();

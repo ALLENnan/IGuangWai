@@ -41,29 +41,37 @@ public class ItemClickListener implements OnItemClickListener {
 		}
 		// Toast.makeText(activity, "id" + article.getId(), Toast.LENGTH_SHORT)
 		// .show();
-		HashMap<String, String> taskArgs = new HashMap<String, String>();
-		taskArgs.put("ContentId", article.getId());
 
-		contentAsync = new Async(activity);
-		contentAsync.post(2, AppConfig.contentUrl, taskArgs);
-		contentAsync.setQuantaAsyncListener(new AsyncContentListener(activity,ActivityId));
+		// HashMap<String, String> taskArgs = new HashMap<String, String>();
+		// taskArgs.put("ContentId", article.getId());
+
+		// contentAsync = new Async(activity);
+		// contentAsync.post(2, AppConfig.contentUrl, taskArgs);
+		// contentAsync.setQuantaAsyncListener(new
+		// AsyncContentListener(activity,ActivityId));
 
 		// 设置handle等待AsyncContentListener返回有正文的article对象
+		//
+		// handler = new Handler() {
+		// public void handleMessage(Message msg) {
+		// if (msg.obj != null) {
+		// Article article = (Article) msg.obj;
+		// Bundle bundle = new Bundle();
+		// bundle.putSerializable("article", article);// 传递article对象
+		// Intent intent = new Intent();
+		// intent.putExtras(bundle);
+		// intent.setClass(activity, ContentActivity.class);
+		// activity.startActivity(intent);
+		// }
+		// }
+		//
+		// };
 
-		handler = new Handler() {
-			public void handleMessage(Message msg) {
-				if (msg.obj != null) {
-					Article article = (Article) msg.obj;
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("article", article);// 传递article对象
-					Intent intent = new Intent();
-					intent.putExtras(bundle);
-					intent.setClass(activity, ContentActivity.class);
-					activity.startActivity(intent);
-				}
-			}
-
-		};
-
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("article", article);// 传递article对象
+		Intent intent = new Intent();
+		intent.putExtras(bundle);
+		intent.setClass(activity, ContentActivity.class);
+		activity.startActivity(intent);
 	}
 }

@@ -53,6 +53,7 @@
         <activity android:name=".activity.PublishActivity" />
         <activity android:name=".activity.ClipActivity" />
         <activity android:name=".activity.ChangeDataActivity" />
+        <activity android:name=".activity.OtherDataActivity" />
     </application>
 
 </manifest>
