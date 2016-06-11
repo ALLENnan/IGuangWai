@@ -12,13 +12,15 @@ import android.widget.TextView;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.ContentActivity;
 import com.allen.iguangwai.model.Comment;
-import com.allen.iguangwai.util.Bitmaploader;
+import com.allen.iguangwai.picasso.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 public class CommentListviewAdapter extends BaseAdapter {
 	private Context context;
 	LayoutInflater myInflater;
 	AllViewHolder holder;
-	Bitmaploader bitmapTools;
+
+	// Bitmaploader bitmapTools;
 
 	// ArrayList<Article> articleList;
 
@@ -26,8 +28,8 @@ public class CommentListviewAdapter extends BaseAdapter {
 		this.context = context;
 		// this.articleList=articleList;
 		myInflater = LayoutInflater.from(context);
-		this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
-				context.getResources(), R.drawable.head));
+		// this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
+		// context.getResources(), R.drawable.head));
 
 	}
 
@@ -71,9 +73,12 @@ public class CommentListviewAdapter extends BaseAdapter {
 		holder.comment.setText(comment.getComment());
 		String imgURL = comment.getHead();
 
-		bitmapTools
-				.loadBitmap(this, imgURL, holder.commentHead, 100, 100, true);
+		// bitmapTools
+		// .loadBitmap(this, imgURL, holder.commentHead, 100, 100, true);
+		Picasso.with(context).load(imgURL).placeholder(R.drawable.head)
+				.error(R.drawable.head)
 
+				.transform(new CircleTransform()).into(holder.commentHead);
 		return convertView;
 	}
 

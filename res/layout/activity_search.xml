@@ -51,7 +51,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="8.0dip"
-                android:text="@string/hot" />
+                android:text="@string/hot"
+                android:textSize="17sp" />
         </LinearLayout>
     </RelativeLayout>
 

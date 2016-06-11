@@ -20,7 +20,6 @@ import com.allen.iguangwai.activity.MyDataActivity;
 import com.allen.iguangwai.activity.MyMsyActivity;
 import com.allen.iguangwai.model.User;
 import com.allen.iguangwai.picasso.CircleTransform;
-import com.allen.iguangwai.util.Bitmaploader;
 import com.squareup.picasso.Picasso;
 
 /*

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.allen.iguangwai.activity.LoginActivity;
 import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
 import com.allen.iguangwai.async.BaseMessage;
@@ -31,13 +33,15 @@ public class AsyncLoginListener implements OnQuantaAsyncListener {
 
 	@Override
 	public void onComplete(int taskId, BaseMessage baseMessage) {
-//
-//		Toast.makeText(activity, baseMessage.getStatus(), Toast.LENGTH_LONG)
-//				.show();
+		//
+		// Toast.makeText(activity, baseMessage.getStatus(), Toast.LENGTH_LONG)
+		// .show();
 		//
 		if (baseMessage.getStatus().equals("1")) {
-			Toast.makeText(activity, "登录成功", Toast.LENGTH_LONG).show();
-//			Toast.makeText(activity, baseMessage.getData(), Toast.LENGTH_LONG).show();
+			LoginActivity.pd.dismiss();
+			// Toast.makeText(activity, "登录成功", Toast.LENGTH_LONG).show();
+			// Toast.makeText(activity, baseMessage.getData(),
+			// Toast.LENGTH_LONG).show();
 
 			try {
 				User user = (User) baseMessage.getData("User");
@@ -45,7 +49,7 @@ public class AsyncLoginListener implements OnQuantaAsyncListener {
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("user", user);// 传递对象
-				
+
 				intent.putExtras(bundle);
 				intent.setClass(activity, MainActivity.class);
 				activity.startActivity(intent);

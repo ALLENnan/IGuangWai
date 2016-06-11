@@ -33,7 +33,6 @@ import com.allen.iguangwai.R;
 import com.allen.iguangwai.fragment.MenuFragment;
 import com.allen.iguangwai.model.User;
 import com.allen.iguangwai.picasso.CircleTransform;
-import com.allen.iguangwai.util.Bitmaploader;
 import com.allen.iguangwai.widget.MyScrollView.OnScrollListener;
 import com.squareup.picasso.Picasso;
 
@@ -103,8 +102,8 @@ public class MyDataActivity extends Activity implements OnClickListener,
 			// R.drawable.default_image));
 			// bitmapTools.loadBitmap(user.getHead(), head, 150, 150, true);//
 			// 异步加载头像\
-			Toast.makeText(this, "地址" + user.getHead(), Toast.LENGTH_LONG)
-					.show();
+			// Toast.makeText(this, "地址" + user.getHead(), Toast.LENGTH_LONG)
+			// .show();
 			if (user.getHead().contains("http")) {
 				Picasso.with(this).load(user.getHead())
 						.placeholder(R.drawable.head).error(R.drawable.head)

@@ -1,16 +1,27 @@
 package com.allen.iguangwai.activity;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,50 +41,63 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.allen.iguangwai.R;
+import com.allen.iguangwai.App;
 import com.allen.iguangwai.AppConfig;
+import com.allen.iguangwai.R;
 import com.allen.iguangwai.async.Async;
 import com.allen.iguangwai.listener.AsyncPublishListener;
 import com.allen.iguangwai.util.ImageUtils;
+import com.allen.iguangwai.util.LogUtil;
+import com.allen.iguangwai.util.NetUtil;
 
 public class PublishActivity extends Activity implements OnClickListener {
 
 	private TextView back;
 	private EditText title_et;
 	private EditText content_et;
-	private ImageView send;
+	private LinearLayout send;
 	private Async publishAsync;
 	private RelativeLayout lin;// 用于判断软键盘是否弹出
 	private boolean isKeyBoardShow = false, isBQViewShow = false;// 软键盘是否弹出的状态
 	private boolean isADJUST_PAN = false, isADJUST_RESIZE = false;
+	private ImageView add_pic;
 	private ImageView ivPic;// 发帖需要发出的图片的显示
 	RelativeLayout relPic;// 图片显示的布局
 	private int SELECT_PICTURE = 1; // 从图库中选择图片
 	private int SELECT_CAMER = 2; // 用相机拍摄照片
+	private String path; // 图片路径
+	ProgressDialog pd;
+	private String resultStr;
+
+	String title;
+	String content;
+	String publishTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setADJUST_RESIZE();
-		setContentView(R.layout.activity_publish);
+		setContentView(R.layout.activity2_publish);
 		publishAsync = new Async(this);
 		publishAsync.setQuantaAsyncListener(new AsyncPublishListener(this));
 		initView();
-		initclik();
+		// initclik();
 	}
 
 	private void initView() {
 		back = (TextView) findViewById(R.id.pub_back);
 		title_et = (EditText) findViewById(R.id.title_et);
 		content_et = (EditText) findViewById(R.id.content_et);
-		send = (ImageView) findViewById(R.id.send);
-
+		send = (LinearLayout) findViewById(R.id.send);
+		add_pic = (ImageView) findViewById(R.id.add_pic);
+		add_pic.setOnClickListener(this);
 		back.setOnClickListener(this);
 		send.setOnClickListener(this);
 
@@ -252,20 +277,38 @@ public class PublishActivity extends Activity implements OnClickListener {
 				public void run() {
 					Bitmap bitmap = null;
 					if (requestCode == SELECT_CAMER) {
-						bitmap = BitmapFactory.decodeFile(getExternalCacheDir()
-								+ "/edtimg.jpg");
+						path = getExternalCacheDir() + "/edtimg.jpg";
+						bitmap = BitmapFactory.decodeFile(path);
 					} else if (requestCode == SELECT_PICTURE) {
 						Uri uri = data.getData();
-						ContentResolver cr = PublishActivity.this
+
+						LogUtil.v("PublishActivity-->uri", uri + "");
+						// Toast.makeText(getApplicationContext(), "uri" + uri,
+						// Toast.LENGTH_LONG).show();
+						ContentResolver resolver = PublishActivity.this
 								.getContentResolver();
+
+						// bitmap = MediaStore.Images.Media.getBitmap(
+						// resolver, uri);
+
+						String[] proj = { MediaStore.Images.Media.DATA };
+						Cursor cursor = managedQuery(uri, proj, null, null,
+								null);
+						int column_index = cursor
+								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+						cursor.moveToFirst();
+						path = cursor.getString(column_index);
+						LogUtil.v("PublishActivity-->path", path + "");
+
 						try {
-							bitmap = BitmapFactory.decodeStream(cr
+							bitmap = BitmapFactory.decodeStream(resolver
 									.openInputStream(uri));
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
 					}
 					Message msg = new Message();
+					msg.what = 0;
 					msg.obj = ThumbnailUtils.extractThumbnail(bitmap, 300, 300);
 					handler.sendMessage(msg);
 					ImageUtils.comp(bitmap);
@@ -284,9 +327,34 @@ public class PublishActivity extends Activity implements OnClickListener {
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			Bitmap bitmap = (Bitmap) msg.obj;
-			relPic.setVisibility(View.VISIBLE);
-			ivPic.setImageBitmap(bitmap);
+			switch (msg.what) {
+			case 0:
+				Bitmap bitmap = (Bitmap) msg.obj;
+				// relPic.setVisibility(View.VISIBLE);
+				// ivPic.setImageBitmap(bitmap);
+				add_pic.setImageBitmap(bitmap);
+				break;
+			case 1:
+				pd.dismiss();
+				try {
+					JSONObject jsonObject = new JSONObject(resultStr);
+					if (jsonObject.optString("status").equals("1")) {
+						LogUtil.v("PublishActivity-->handleMessage", "发布成功");
+					} else {
+						LogUtil.v("PublishActivity-->handleMessage", "发布失败");
+					}
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				pd.dismiss();
+
+				LogUtil.v("PublishActivity-->handleMessage", "网络不给力");
+				break;
+			}
+
 		}
 	};
 
@@ -298,31 +366,116 @@ public class PublishActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.send:
+			LogUtil.v("PublishActivity-->onclick", "send");
 			send();
+			break;
+		case R.id.add_pic:
+			if (isKeyBoardShow) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+			showSetHeadimg();
+			break;
 		}
 	}
 
 	private void send() {
-
-		String title = title_et.getText().toString();
-		String content = content_et.getText().toString();
-		HashMap<String, String> taskArgs = null;
+		pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
+		title = title_et.getText().toString();
+		content = content_et.getText().toString();
+		HashMap<String, Object> taskArgs = null;
 		if (!title.equals("") && !content.equals("")) {
 			SimpleDateFormat time = new SimpleDateFormat("mm:ss");
-			String publishTime = time.format(new java.util.Date());
-			taskArgs = new HashMap<String, String>();
-			taskArgs.put("id", MainActivity.user.getUsername());
-			taskArgs.put("area", "学习区");
-			taskArgs.put("type", "考试");
-			taskArgs.put("title", title);
-			taskArgs.put("description", "摘要");
-			taskArgs.put("content", content);
-			taskArgs.put("publishTime", publishTime);
-
-			publishAsync.post(2, AppConfig.publishUrl, taskArgs);
-			Toast.makeText(getApplicationContext(), "正在发布...",
-					Toast.LENGTH_LONG).show();
+			publishTime = time.format(new java.util.Date());
+			// taskArgs = new HashMap<String, Object>();
+			// taskArgs.put("id", MainActivity.user.getUsername());
+			// taskArgs.put("area", "学习区");
+			// taskArgs.put("type", "考试");
+			// taskArgs.put("title", title);
+			// taskArgs.put("description", "摘要");
+			// taskArgs.put("content", content);
+			// taskArgs.put("publishTime", publishTime);
+			// taskArgs.put("pic", new File(path));
+			//
+			// publishAsync.post(2, AppConfig.publishUrl, taskArgs);
+			// Toast.makeText(getApplicationContext(), "正在发布...",
+			// Toast.LENGTH_LONG).show();
 		}
+		new Thread(uploadImageRunnable).start();
+		LogUtil.v("PublishActivity", "uploadImageRunnable");
 	}
+
+	Runnable uploadImageRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+
+			// if (TextUtils.isEmpty(imgUrl)) {
+			// Toast.makeText(mContext, "还没有设置上传服务器的路径！", Toast.LENGTH_SHORT)
+			// .show();
+			// return;
+			// }
+
+			Map<String, String> textParams = new HashMap<String, String>();
+			Map<String, File> fileparams = new HashMap<String, File>();
+
+			try {
+				// 创建一个URL对象
+				URL url = new URL(AppConfig.publishUrl);
+				textParams = new HashMap<String, String>();
+				fileparams = new HashMap<String, File>();
+				// 要上传的图片文件
+				if (path != null) {
+					File file = new File(path);
+					fileparams.put("pic", file);
+				}
+				textParams.put("id", MainActivity.user.getUsername());
+				textParams.put("area", "学习区");
+				textParams.put("type", "考试");
+				textParams.put("title", title);
+				textParams.put("description", "摘要");
+				textParams.put("content", content);
+				textParams.put("publishTime", publishTime);
+
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setConnectTimeout(5000);
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				conn.setRequestMethod("POST");
+				// 设置不使用缓存（容易出现问题）
+				conn.setUseCaches(false);
+				// 在开始用HttpURLConnection对象的setRequestProperty()设置,就是生成HTML文件头
+				conn.setRequestProperty("ser-Agent", "Fiddler");
+				// 设置contentType
+				conn.setRequestProperty("Content-Type",
+						"multipart/form-data; boundary=" + NetUtil.BOUNDARY);
+				OutputStream os = conn.getOutputStream();
+				DataOutputStream ds = new DataOutputStream(os);
+				NetUtil.writeStringParams(textParams, ds);
+				NetUtil.writeFileParams(fileparams, ds);
+				NetUtil.paramsEnd(ds);
+				os.close();
+
+				int code = conn.getResponseCode(); // 从Internet获取网页,发送请求,将网页以流的形式读回来
+				LogUtil.v("PublishActivity--uploadImageRunnable", "响应码" + code);
+				if (code == 200) {// 返回的响应码200,是成功
+					// 得到网络返回的输入流
+					InputStream is = conn.getInputStream();
+					resultStr = NetUtil.readString(is);
+					handler.sendEmptyMessage(1);
+					LogUtil.v("PublishActivity--uploadImageRunnable", "响应码200"
+							+ resultStr);
+				} else {
+					LogUtil.v("PublishActivity--uploadImageRunnable", "请求URI失败"
+							+ resultStr);
+					handler.sendEmptyMessage(2);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	};
 
 }

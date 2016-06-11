@@ -16,23 +16,25 @@ import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.activity.SearchActivity;
 import com.allen.iguangwai.model.Article;
-import com.allen.iguangwai.util.Bitmaploader;
+import com.allen.iguangwai.picasso.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 public class SearchListviewAdapter extends BaseAdapter {
 	private Context context;
 	LayoutInflater myInflater;
 	AllViewHolder holder;
-	Bitmaploader bitmapTools;
-	
-//	ArrayList<Article> articleList;
+
+	// Bitmaploader bitmapTools;
+
+	// ArrayList<Article> articleList;
 
 	public SearchListviewAdapter(Context context) {
 		this.context = context;
-//		this.articleList=articleList;
+		// this.articleList=articleList;
 		myInflater = LayoutInflater.from(context);
-		this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
-				context.getResources(), R.drawable.default_image));
-		
+		// this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
+		// context.getResources(), R.drawable.default_image));
+
 	}
 
 	@Override
@@ -52,8 +54,8 @@ public class SearchListviewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-	
-		Article mArticle =SearchActivity.articleList.get(position);
+
+		Article mArticle = SearchActivity.articleList.get(position);
 		if (convertView == null) {
 			convertView = myInflater.inflate(R.layout.search_list_item, null);
 			holder = new AllViewHolder();
@@ -74,7 +76,10 @@ public class SearchListviewAdapter extends BaseAdapter {
 		holder.desc_tv.setText(mArticle.getDescription());
 		String imgURL = mArticle.getFirstPicUrl();
 
-		bitmapTools.loadBitmap(imgURL, holder.item_iv, 180, 180, false);
+		// bitmapTools.loadBitmap(imgURL, holder.item_iv, 180, 180, false);
+		Picasso.with(context).load(imgURL).placeholder(R.drawable.default_image)
+				.error(R.drawable.head)
+				.into(holder.item_iv);
 
 		return convertView;
 	}

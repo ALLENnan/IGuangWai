@@ -25,8 +25,9 @@ import com.allen.iguangwai.listener.AsyncCommentListener;
 import com.allen.iguangwai.listener.AsyncSendCommentListener;
 import com.allen.iguangwai.model.Article;
 import com.allen.iguangwai.model.Comment;
+import com.allen.iguangwai.picasso.CircleTransform;
 import com.allen.iguangwai.util.BaseTools;
-import com.allen.iguangwai.util.Bitmaploader;
+import com.squareup.picasso.Picasso;
 
 /*
  * 帖子正文Activity
@@ -103,11 +104,15 @@ public class ContentActivity extends Activity implements OnClickListener {
 
 		int width = BaseTools.getWindowsWidth(this);
 
-		Bitmaploader bitmapTools = new Bitmaploader(
-				BitmapFactory.decodeResource(this.getResources(),
-						R.drawable.default_image));
-		bitmapTools.loadBitmap(article.getFirstPicUrl(), image_content,
-				width - 40, width - 40, false);// 异步加载头像
+		// Bitmaploader bitmapTools = new Bitmaploader(
+		// BitmapFactory.decodeResource(this.getResources(),
+		// R.drawable.default_image));
+		// bitmapTools.loadBitmap(article.getFirstPicUrl(), image_content,
+		// width - 40, width - 40, false);// 异步加载头像
+
+		Picasso.with(this).load(article.getFirstPicUrl())
+				.placeholder(R.drawable.default_image).error(R.drawable.default_image)
+				.into(image_content);
 
 	}
 

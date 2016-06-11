@@ -3,6 +3,7 @@ package com.allen.iguangwai.activity;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private EditText edit_password;
 	private Button bt_login;
 	private Async loginAsync;
+	public static ProgressDialog pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +85,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				Log.v("myLog", str_username);
 				loginAsync.post(2, AppConfig.loginUrl, taskArgs);
 			}
-			Toast.makeText(this, "正在登录，请稍候...", Toast.LENGTH_SHORT).show();
-
+			// Toast.makeText(this, "正在登录，请稍候...", Toast.LENGTH_SHORT).show();
+			pd = ProgressDialog.show(this, null, "正在登录，请稍候...");
 			break;
 
 		case R.id.tv_tourlogin:

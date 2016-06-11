@@ -4,7 +4,6 @@ import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.model.Article;
 import com.allen.iguangwai.picasso.CircleTransform;
-import com.allen.iguangwai.util.Bitmaploader;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -24,13 +23,13 @@ public class MainListViewAdapter extends BaseAdapter {
 	private Context context;
 	LayoutInflater myInflater;
 	AllViewHolder holder;
-	Bitmaploader bitmapTools;
+//	Bitmaploader bitmapTools;
 
 	public MainListViewAdapter(Context context) {
 		this.context = context;
 		myInflater = LayoutInflater.from(context);
-		this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
-				context.getResources(), R.drawable.default_image));
+//		this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
+//				context.getResources(), R.drawable.default_image));
 	}
 
 	@Override
