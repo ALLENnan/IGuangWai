@@ -1,9 +1,21 @@
 package com.allen.iguangwai.activity;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,7 +26,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +44,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.allen.iguangwai.AppConfig;
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.fragment.MenuFragment;
 import com.allen.iguangwai.model.User;
 import com.allen.iguangwai.picasso.CircleTransform;
+import com.allen.iguangwai.util.LogUtil;
+import com.allen.iguangwai.util.NetUtil;
 import com.allen.iguangwai.widget.MyScrollView.OnScrollListener;
 import com.squareup.picasso.Picasso;
 
@@ -42,6 +60,7 @@ import com.squareup.picasso.Picasso;
 public class MyDataActivity extends Activity implements OnClickListener,
 		OnScrollListener {
 	private TextView back;
+	private Context context;
 	User user;
 	private RelativeLayout title_bar;
 	private TextView tv_title, name, academy, major, gender, sign;
@@ -59,20 +78,31 @@ public class MyDataActivity extends Activity implements OnClickListener,
 	private String photoSavePath;// 保存路径
 	private String photoSaveName;// 图片名
 	private String path;// 图片全路径
+	ProgressDialog pd;
+	String resultStr;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_mydata);
+		 setContentView(R.layout.activity_mydata);
+		// LogUtil.v("MyDataActivity-->onCreate",
+		// user.getName() + user.getSignature());
 		// user = (User) getIntent().getSerializableExtra("user");
 		user = MainActivity.user;
+		
+		LogUtil.v("MyDataActivity-->onCreate",
+				user.getName() + user.getSignature());
 		initPath();
 		initView();
+		LogUtil.v("MyDataActivity-->onCreate",
+				user.getName() + user.getSignature());
 		setUserInfo();
 	}
 
 	private void setUserInfo() {
 		name.setText(user.getName());
+		LogUtil.v("MyDataActivity-->setUserInfo",
+				user.getName() + user.getSignature());
 		academy.setText(user.getAcademy());
 		major.setText(user.getMajor());
 		gender.setText(user.getGender());
@@ -243,12 +273,17 @@ public class MyDataActivity extends Activity implements OnClickListener,
 			intent2.putExtra("path", path);
 			startActivityForResult(intent2, IMAGE_COMPLETE);
 			break;
-		case IMAGE_COMPLETE:
+		case IMAGE_COMPLETE:// 结果，上传图片到服务器
 			final String temppath = data.getStringExtra("path");
 			head.setImageBitmap(getLoacalBitmap(temppath));
 			// TODO
 			MenuFragment.head.setImageBitmap(getLoacalBitmap(temppath));
 			user.setHead(temppath);
+			path = temppath;
+
+//			pd = ProgressDialog.show(this, null, "正在上传头像到服务器...");
+			new Thread(uploadHeadRunnable).start();
+			LogUtil.v("MyDataActivity", "uploadHeadRunnable");
 
 			break;
 		default:
@@ -282,5 +317,111 @@ public class MyDataActivity extends Activity implements OnClickListener,
 			title_bar.setBackgroundColor(Color.parseColor("#18B4ED"));
 		}
 	}
+
+	Runnable uploadHeadRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+
+			Map<String, String> textParams = new HashMap<String, String>();
+			Map<String, File> fileparams = new HashMap<String, File>();
+
+			try {
+				// 创建一个URL对象
+				URL url = new URL(AppConfig.sendUserDataUrl);
+				textParams = new HashMap<String, String>();
+				fileparams = new HashMap<String, File>();
+				// 要上传的图片文件
+				if (path != null) {
+					LogUtil.v("path", path);
+					File file = new File(path);
+					fileparams.put("pic", file);
+				}
+				
+				textParams.put("username", MainActivity.user.getUsername());
+				LogUtil.v("username", MainActivity.user.getUsername());
+				// textParams.put("area", "考試");
+				// textParams.put("type", "学习区");
+				// textParams.put("title", title);
+				// textParams.put("description", "摘要");
+				// textParams.put("content", content);
+				// textParams.put("publishTime", publishTime);
+
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setConnectTimeout(5000);
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				conn.setRequestMethod("POST");
+				// 设置不使用缓存（容易出现问题）
+				conn.setUseCaches(false);
+				// 在开始用HttpURLConnection对象的setRequestProperty()设置,就是生成HTML文件头
+				conn.setRequestProperty("ser-Agent", "Fiddler");
+				// 设置contentType
+				conn.setRequestProperty("Content-Type",
+						"multipart/form-data; boundary=" + NetUtil.BOUNDARY);
+				OutputStream os = conn.getOutputStream();
+				DataOutputStream ds = new DataOutputStream(os);
+				NetUtil.writeStringParams(textParams, ds);
+				NetUtil.writeFileParams(fileparams, ds);
+				NetUtil.paramsEnd(ds);
+				os.close();
+
+				int code = conn.getResponseCode(); // 从Internet获取网页,发送请求,将网页以流的形式读回来
+				LogUtil.v("MyDataActivity", "uploadHeadRunnable " + "响应码"
+						+ code);
+				if (code == 200) {// 返回的响应码200,是成功
+					// 得到网络返回的输入流
+					InputStream is = conn.getInputStream();
+					resultStr = NetUtil.readString(is);
+					handler.sendEmptyMessage(1);
+//					LogUtil.v("MyDataActivity", "uploadHeadRunnable "
+//							+ "响应码200" + resultStr);
+				} else {
+					// InputStream is = conn.getInputStream();
+					// resultStr = NetUtil.readString(is);
+					InputStream is = conn.getInputStream();
+					resultStr = NetUtil.readString(is);
+					LogUtil.v("PublishActivity--uploadImageRunnable", "网络请求失败");
+					handler.sendEmptyMessage(2);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	};
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+//				pd.dismiss();
+				try {
+					LogUtil.v("MyDataActivity", resultStr);
+					JSONObject jsonObject = new JSONObject(resultStr);
+					if (jsonObject.optString("status").equals("1")) {
+						// Toast.makeText(context, "设置头像成功",
+						// Toast.LENGTH_SHORT).show();
+						LogUtil.v("PublishActivity-->handleMessage", "设置头像成功");
+					} else {
+						// Toast.makeText(context, "设置头像失败",
+						// Toast.LENGTH_SHORT).show();
+						LogUtil.v("PublishActivity-->handleMessage", "设置头像失败");
+					}
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+//				pd.dismiss();
+				// Toast.makeText(context, "网络请求失败", Toast.LENGTH_SHORT).show();
+				LogUtil.v("PublishActivity-->handleMessage", "网络请求失败");
+				break;
+			}
+
+		}
+	};
 
 }

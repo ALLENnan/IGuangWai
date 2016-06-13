@@ -351,7 +351,8 @@ public class PublishActivity extends Activity implements OnClickListener {
 				try {
 					JSONObject jsonObject = new JSONObject(resultStr);
 					if (jsonObject.optString("status").equals("1")) {
-						Toast.makeText(context, "发布成功", Toast.LENGTH_SHORT);
+						Toast.makeText(context, "发布成功", Toast.LENGTH_SHORT)
+								.show();
 						LogUtil.v("PublishActivity-->handleMessage", "发布成功");
 					} else {
 						Toast.makeText(context, "发布失败", Toast.LENGTH_SHORT);
@@ -364,7 +365,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 				break;
 			case 2:
 				pd.dismiss();
-				Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT);
+				Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
 				LogUtil.v("PublishActivity-->handleMessage", "网络不给力");
 				break;
 			}
@@ -397,7 +398,7 @@ public class PublishActivity extends Activity implements OnClickListener {
 		pd = ProgressDialog.show(this, null, "正在发布帖子，请稍候...");
 		title = title_et.getText().toString();
 		content = content_et.getText().toString();
-		HashMap<String, Object> taskArgs = null;
+		// HashMap<String, Object> taskArgs = null;
 		if (!title.equals("") && !content.equals("")) {
 			SimpleDateFormat time = new SimpleDateFormat("mm:ss");
 			publishTime = time.format(new java.util.Date());

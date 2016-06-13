@@ -5,6 +5,8 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -21,11 +23,11 @@ import com.allen.iguangwai.AppConfig;
 public class RefreshListener implements OnRefreshListener<ListView> {
 	Activity activity;
 	public PullToRefreshListView mPullRefreshListView;
-	private MainListViewAdapter adapter;
+	private BaseAdapter adapter;
 
 	public RefreshListener(Activity activity,
 			PullToRefreshListView mPullRefreshListView,
-			MainListViewAdapter adapter) {
+			BaseAdapter adapter) {
 		this.activity = activity;
 		this.mPullRefreshListView = mPullRefreshListView;
 		this.adapter = adapter;

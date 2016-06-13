@@ -84,7 +84,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 							.toString());
 					sendUserDataAsync.post(2, AppConfig.sendUserDataUrl,
 							taskArgs2);
-
+					//Toast.makeText(this, "保存成功", Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(this, "请先登录...", Toast.LENGTH_LONG).show();
 				}

@@ -99,6 +99,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			intent.setClass(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 			finish();
+			pd = ProgressDialog.show(this, null, "正在进入，请稍候...");
 			break;
 		}
 	}

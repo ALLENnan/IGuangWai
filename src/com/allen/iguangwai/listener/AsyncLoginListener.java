@@ -11,6 +11,7 @@ import com.allen.iguangwai.activity.MainActivity;
 import com.allen.iguangwai.async.Async.OnQuantaAsyncListener;
 import com.allen.iguangwai.async.BaseMessage;
 import com.allen.iguangwai.model.User;
+import com.socks.library.KLog;
 
 public class AsyncLoginListener implements OnQuantaAsyncListener {
 
@@ -22,11 +23,13 @@ public class AsyncLoginListener implements OnQuantaAsyncListener {
 
 	@Override
 	public void onNetWorkError(int taskId, String errorMsg) {
+		LoginActivity.pd.dismiss();
 		Toast.makeText(activity, "error:" + errorMsg, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	public void onComplete(int taskId) {
+		
 		Toast.makeText(activity, "请求成功", Toast.LENGTH_LONG).show();
 
 	}
@@ -59,7 +62,9 @@ public class AsyncLoginListener implements OnQuantaAsyncListener {
 			}
 
 		}
+		
 		if (baseMessage.getStatus().equals("0")) {
+			LoginActivity.pd.dismiss();
 			Toast.makeText(activity, "用户名或密码错误", Toast.LENGTH_LONG).show();
 		}
 	}

@@ -16,8 +16,8 @@ public class AsyncUserDataListener implements OnQuantaAsyncListener {
 
 	@Override
 	public void onComplete(int taskId, BaseMessage baseMessage) {
-		Toast.makeText(activity, baseMessage.getData(), Toast.LENGTH_LONG)
-				.show();
+//		Toast.makeText(activity, baseMessage.getData(), Toast.LENGTH_LONG)
+//				.show();
 		if (baseMessage.getStatus().equals("1")) {
 			Toast.makeText(activity, "±£´æ³É¹¦", Toast.LENGTH_LONG).show();
 

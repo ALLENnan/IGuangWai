@@ -6,6 +6,7 @@ import java.util.HashMap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
@@ -91,8 +92,8 @@ public class MainActivity extends SlidingFragmentActivity implements
 		setContentView(R.layout.activity_main);
 
 		user = (User) getIntent().getSerializableExtra("user");
-		user.setName("");
-		user.setSignature("");
+//		user.setName("");
+//		user.setSignature("");
 
 		// 实例化一个article数据库操作类，从数据库返回articleList
 		ArticleDao articleDao = new ArticleDao(this);
@@ -202,6 +203,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
 				fragmentsList));
 		viewPager.setCurrentItem(0);
+		FragmentManager supportFragmentManager = getSupportFragmentManager();
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override

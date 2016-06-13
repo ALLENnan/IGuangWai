@@ -1,10 +1,13 @@
 package com.allen.iguangwai.activity;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import android.app.Activity;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -19,27 +22,29 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.allen.iguangwai.R;
-import com.allen.iguangwai.adapter.MyPagerAdapter;
+import com.allen.iguangwai.adapter.FragmentAdapter;
+import com.allen.iguangwai.fragment.UserArticleFragment;
+
 /*
  * 我的动态
  */
-public class MyAcyActivity extends Activity implements OnClickListener {
+public class MyAcyActivity extends FragmentActivity implements OnClickListener {
 
-	ViewPager mViewPager;
 	private LinearLayout linearLayout1;
 	private TextView textView1, textView2, acy_back;
 	private int currIndex = 0;// 当前页卡编号
 	private ImageView imageView;// 页卡标题动画图片
 	private int textViewW = 0;// 页卡标题的宽度
-	private List<View> listViews;
 	private View view1, view2;
+	private ArrayList<Fragment> fragmentsList;
+	private ViewPager viewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
 		setContentView(R.layout.activity_myacy);
-
+			
 		initControl();
 		initViewPager();
 		InitTextView();
@@ -50,21 +55,24 @@ public class MyAcyActivity extends Activity implements OnClickListener {
 		imageView = (ImageView) findViewById(R.id.cursor);
 		acy_back = (TextView) findViewById(R.id.acy_back);
 		linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
-		mViewPager = (ViewPager) findViewById(R.id.pvr_user_pager);
-		mViewPager.setOffscreenPageLimit(2);/* 预加载页面 */
+		viewPager = (ViewPager) findViewById(R.id.pvr_user_pager);
+		viewPager.setOffscreenPageLimit(2);/* 预加载页面 */
 	}
 
 	/* 初始化ViewPager */
 	private void initViewPager() {
-		listViews = new ArrayList<View>();
 		LayoutInflater mInflater = getLayoutInflater();
-		view1 = mInflater.inflate(R.layout.text, null);
-		view2 = mInflater.inflate(R.layout.text, null);
-		listViews.add(view1);
-		listViews.add(view2);
-		mViewPager.setAdapter(new MyPagerAdapter(listViews));
-		mViewPager.setCurrentItem(0);
-		mViewPager.setOnPageChangeListener(new MyOnPageChangeListener());
+		// view1 = mInflater.inflate(R.layout.text, null);
+		// view2 = mInflater.inflate(R.layout.text, null);
+		fragmentsList = new ArrayList<Fragment>();
+		UserArticleFragment userArticleFragment = new UserArticleFragment();
+		fragmentsList.add(userArticleFragment);
+		UserArticleFragment userArticleFragment2 = new UserArticleFragment();
+		fragmentsList.add(userArticleFragment2);
+		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
+				fragmentsList));
+		viewPager.setCurrentItem(0);
+		viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
 
 	}
 
@@ -133,9 +141,9 @@ public class MyAcyActivity extends Activity implements OnClickListener {
 		public MyOnClickListener(int i) {
 			index = i;
 		}
-
+		
 		public void onClick(View v) {
-			mViewPager.setCurrentItem(index);
+			viewPager.setCurrentItem(index);
 		}
 	}
 

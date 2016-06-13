@@ -2,6 +2,8 @@ package com.allen.iguangwai.adapter;
 
 import com.allen.iguangwai.R;
 import com.allen.iguangwai.activity.MainActivity;
+import com.allen.iguangwai.fragment.UserArticleFragment;
+import com.allen.iguangwai.fragment.UserCommentFragment;
 import com.allen.iguangwai.model.Article;
 import com.allen.iguangwai.picasso.CircleTransform;
 import com.socks.library.KLog;
@@ -17,17 +19,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/*
- * 主界面的listview adapter
- */
-public class MainListViewAdapter extends BaseAdapter {
+//我评论的帖子
+public class UserCommentAdapter extends BaseAdapter {
 	private Context context;
 	LayoutInflater myInflater;
 	AllViewHolder holder;
 
 	// Bitmaploader bitmapTools;
 
-	public MainListViewAdapter(Context context) {
+	public UserCommentAdapter(Context context) {
 		this.context = context;
 		myInflater = LayoutInflater.from(context);
 		// this.bitmapTools = new Bitmaploader(BitmapFactory.decodeResource(
@@ -36,12 +36,12 @@ public class MainListViewAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return MainActivity.articleList.size();
+		return UserCommentFragment.articleList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return MainActivity.articleList.get(position);
+		return UserCommentFragment.articleList.get(position);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MainListViewAdapter extends BaseAdapter {
 		// 取出model类数据
 		// Log.v("MainListViewAdapter", "getArticleList");
 		// School mSchool = MainActivity.schoolList.get(position);
-		Article mArticle = MainActivity.articleList.get(position);
+		Article mArticle = UserCommentFragment.articleList.get(position);
 		if (convertView == null) {
 			convertView = myInflater.inflate(R.layout.list_item, null);
 			holder = new AllViewHolder();

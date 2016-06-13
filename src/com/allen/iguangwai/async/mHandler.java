@@ -34,8 +34,8 @@ public class mHandler extends Handler {
 		case TaskThread.TASK_COMPLETE:
 			taskId = msg.getData().getInt("taskId");
 			result = msg.getData().getString("data");
-			Log.v("mHandler-->handleMessage", "Json" + "---" + result);
-			KLog.json(result);
+//			Log.v("mHandler-->handleMessage", "Json" + "---" + result);
+			KLog.json("mHandler-->handleMessage",result);
 			if (result != null && !result.equals("")) {
 				this.quantaAsyncListener.onComplete(taskId,
 						AppUtil.getMessage(result));
