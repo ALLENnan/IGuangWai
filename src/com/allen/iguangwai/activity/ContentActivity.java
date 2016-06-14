@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -44,13 +45,13 @@ public class ContentActivity extends Activity implements OnClickListener {
 	Article article;
 	public static ArrayList<Comment> commentList = new ArrayList<Comment>();// ∆¿¬€¡–±Ì
 	public static CommentListviewAdapter adapter;
-
-
+	public static Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_content);
+		context=this;
 		article = (Article) getIntent().getSerializableExtra("article");
 		initView();
 		showView();

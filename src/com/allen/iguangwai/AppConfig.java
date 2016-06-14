@@ -8,6 +8,8 @@ public class AppConfig {
 	public static String USERNAME;
 	public static String ip1="http://192.168.203.84/";
 	public static String ip2="http://192.168.203.90/";
+	public static String ip3="http://192.168.235.75/";
+	// http://192.168.235.75/
 	// http://192.168.203.84/
 	// http://192.168.203.90/
 

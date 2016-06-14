@@ -203,7 +203,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 		viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
 				fragmentsList));
 		viewPager.setCurrentItem(0);
-		FragmentManager supportFragmentManager = getSupportFragmentManager();
+//		FragmentManager supportFragmentManager = getSupportFragmentManager();
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override

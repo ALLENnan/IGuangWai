@@ -43,6 +43,8 @@ public class AsyncCommentListener implements OnQuantaAsyncListener {
 						.getDataList("Comment");
 				ContentActivity.commentList = temp;
 				ContentActivity.adapter.notifyDataSetChanged();// 更新listview
+				if(temp.size()==0){
+				Toast.makeText(activity, "暂无评论", Toast.LENGTH_LONG).show();}
 				// Toast.makeText(activity, "返回成功..",
 				// Toast.LENGTH_SHORT).show();
 
@@ -64,12 +66,13 @@ public class AsyncCommentListener implements OnQuantaAsyncListener {
 	@Override
 	public void onComplete(int taskId) {
 		Log.v("AsyncCommentListener", "评论data onComplete");
+//		Toast.makeText(activity, "暂无评论", Toast.LENGTH_SHORT).show();
 		Toast.makeText(activity, "请求成功！", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onNetWorkError(int taskId, String errorMsg) {
 		Log.v("AsyncCommentListener", "评论data onNetWorkError ");
-		Toast.makeText(activity, "网络错误！", Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity, "网络访问错误", Toast.LENGTH_SHORT).show();
 	}
 }
