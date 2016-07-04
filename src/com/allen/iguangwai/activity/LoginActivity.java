@@ -84,9 +84,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				Log.v("myLog", str_password);
 				Log.v("myLog", str_username);
 				loginAsync.post(2, AppConfig.loginUrl, taskArgs);
+				pd = ProgressDialog.show(this, null, "正在登录，请稍候...");
 			}
+			else if(str_username.equals("")){
+				Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+			}else if(str_password.equals("")){
+				Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+			}
+			
 			// Toast.makeText(this, "正在登录，请稍候...", Toast.LENGTH_SHORT).show();
-			pd = ProgressDialog.show(this, null, "正在登录，请稍候...");
+//			pd = ProgressDialog.show(this, null, "正在登录，请稍候...");
 			break;
 
 		case R.id.tv_tourlogin:

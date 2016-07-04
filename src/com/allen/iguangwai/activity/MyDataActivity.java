@@ -89,13 +89,16 @@ public class MyDataActivity extends Activity implements OnClickListener,
 		// user.getName() + user.getSignature());
 		// user = (User) getIntent().getSerializableExtra("user");
 		user = MainActivity.user;
-		
-		LogUtil.v("MyDataActivity-->onCreate",
-				user.getName() + user.getSignature());
+//		
+//		LogUtil.v("MyDataActivity-->onCreate",
+//				user.getName() + user.getSignature());
 		initPath();
 		initView();
-		LogUtil.v("MyDataActivity-->onCreate",
-				user.getName() + user.getSignature());
+//		LogUtil.v("MyDataActivity-->onCreate",
+//				user.getName() + user.getSignature());
+//		if (condition) {
+//			
+//		}
 		setUserInfo();
 	}
 
@@ -106,7 +109,7 @@ public class MyDataActivity extends Activity implements OnClickListener,
 		academy.setText(user.getAcademy());
 		major.setText(user.getMajor());
 		gender.setText(user.getGender());
-		if (!user.getSignature().equals("")) {
+		if (user.getSignature()!=null&&!user.getSignature().equals("")) {
 			sign.setText(user.getSignature());
 		}
 	}

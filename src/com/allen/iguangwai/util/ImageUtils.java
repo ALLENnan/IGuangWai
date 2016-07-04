@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import com.allen.iguangwai.R;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -214,7 +216,7 @@ public class ImageUtils {
 
 			e1.printStackTrace();
 		}
-
+		
 		return bitmap;
 	}
 
